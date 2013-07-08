@@ -8,6 +8,9 @@ use List::AllUtils qw( natatime );
 use Scalar::Util qw( blessed );
 use Test::More;
 
+use lib 't/lib';
+use Test::MaxMind::DB::Reader;
+
 use Exporter qw( import );
 
 our @EXPORT_OK = qw(

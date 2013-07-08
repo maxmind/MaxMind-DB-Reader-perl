@@ -4,6 +4,9 @@ use autodie;
 
 use Test::More;
 
+use lib 't/lib';
+use Test::MaxMind::DB::Reader;
+
 use File::Temp qw( tempdir );
 use MaxMind::DB::Writer::Tree::InMemory;
 use MaxMind::DB::Writer::Tree::File;
