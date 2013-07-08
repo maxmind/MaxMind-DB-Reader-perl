@@ -12,7 +12,7 @@ my $Implementation;
         implementations => [ 'XS', 'PP' ],
     );
 
-    $loader->();
+    $Implementation = $loader->();
 }
 
 sub new {

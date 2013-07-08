@@ -1,4 +1,4 @@
-package MaxMind::DB::Reader;
+package MaxMind::DB::Reader::PP;
 
 use strict;
 use warnings;
