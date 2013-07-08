@@ -10,9 +10,6 @@ use MaxMind::DB::Metadata;
 use MaxMind::DB::Reader::File;
 use Socket qw( inet_ntoa );
 
-#use MaxMind::DB::Reader::Memory;
-#use MaxMind::DB::Reader::PartialMemory;
-
 use Moose;
 
 has file => (
