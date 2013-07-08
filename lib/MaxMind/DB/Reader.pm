@@ -7,23 +7,17 @@ use namespace::autoclean;
 use Data::Validate::Domain qw( is_hostname );
 use Data::Validate::IP qw( is_ipv4 is_ipv6 is_private_ipv4 );
 use MaxMind::DB::Metadata;
-use MaxMind::DB::Reader::File;
 use Socket qw( inet_ntoa );
 
 use Moose;
+use MooseX::StrictConstructor;
+
+with 'MaxMind::DB::Reader::Role::Reader';
 
 has file => (
     is       => 'ro',
-    required => 0,
-);
-
-has _reader => (
-    is       => 'ro',
-    does     => 'MaxMind::DB::Reader::Role::Reader',
-    init_arg => undef,
-    lazy     => 1,
-    builder  => '_build_reader',
-    handles  => [ 'metadata', MaxMind::DB::Metadata->meta()->get_attribute_list() ],
+    isa      => 'Str',
+    required => 1,
 );
 
 sub BUILD {
@@ -32,10 +26,10 @@ sub BUILD {
     my $file = $self->file();
 
     die "The file you specified ($file) does not exist"
-        if $file && !-e $file;
+        unless -e $file;
 
     die "The file you specified ($file) cannot be read"
-        if $file && !-r _;
+        unless -r _;
 
     return;
 }
@@ -54,7 +48,7 @@ sub record_for_address {
     die "The IP address you provided ($addr) is not a public IP address"
         if is_private_ipv4($addr) || _is_private_ipv6($addr);
 
-    return $self->_reader()->data_for_address($addr);
+    return $self->data_for_address($addr);
 }
 
 sub record_for_hostname {
@@ -88,9 +82,12 @@ sub _is_private_ipv6 {
     return 0;
 }
 
-sub _build_reader {
+sub _build_data_source {
     my $self = shift;
-    return MaxMind::DB::Reader::File->new( file => $self->file );
+
+    open my $fh, '<:raw', $self->file();
+
+    return $fh;
 }
 
 __PACKAGE__->meta()->make_immutable();
