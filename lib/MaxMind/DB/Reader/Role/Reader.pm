@@ -7,7 +7,7 @@ use autodie;
 
 use Net::Works::Address;
 
-use Moose::Role;
+use Moo::Role;
 
 use constant DEBUG => $ENV{MAXMIND_DB_READER_DEBUG};
 

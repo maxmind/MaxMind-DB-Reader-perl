@@ -5,11 +5,14 @@ use warnings;
 use namespace::autoclean;
 use autodie;
 
-use Moose::Role;
+use Carp qw( confess );
+use MooX::Types::MooseLike::Base qw( FileHandle );
+
+use Moo::Role;
 
 has data_source => (
     is      => 'ro',
-    isa     => 'FileHandle',
+    isa     => FileHandle,
     lazy    => 1,
     builder => '_build_data_source',
 );

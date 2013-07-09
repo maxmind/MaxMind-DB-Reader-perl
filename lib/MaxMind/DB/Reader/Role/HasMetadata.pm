@@ -9,14 +9,15 @@ require bytes;
 use List::AllUtils qw( min );
 use MaxMind::DB::Reader::Decoder;
 use MaxMind::DB::Metadata;
+use MooX::Types::MooseLike::Base qw( InstanceOf Int );
 
-use Moose::Role;
+use Moo::Role;
 
 with 'MaxMind::DB::Reader::Role::Sysreader';
 
 has metadata => (
     is       => 'ro',
-    isa      => 'MaxMind::DB::Metadata',
+    isa      => InstanceOf['MaxMind::DB::Metadata'],
     init_arg => undef,
     lazy     => 1,
     builder  => '_build_metadata',
@@ -25,7 +26,7 @@ has metadata => (
 
 has _data_source_size => (
     is       => 'ro',
-    isa      => 'Int',
+    isa      => Int,
     init_arg => undef,
     lazy     => 1,
     builder  => '_build_data_source_size',
@@ -34,7 +35,7 @@ has _data_source_size => (
 has _data_section_end => (
     is       => 'rw',
     writer   => '_set_data_section_end',
-    isa      => 'Int',
+    isa      => Int,
     init_arg => undef,
 );
 

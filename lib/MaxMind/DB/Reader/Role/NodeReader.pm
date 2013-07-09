@@ -5,13 +5,15 @@ use warnings;
 use namespace::autoclean;
 use autodie;
 
-use Moose::Role;
+use MooX::Types::MooseLike::Base qw( Int );
+
+use Moo::Role;
 
 with 'MaxMind::DB::Reader::Role::HasMetadata';
 
 has _node_byte_size => (
     is       => 'ro',
-    isa      => 'Int',
+    isa      => Int,
     init_arg => undef,
     lazy     => 1,
     builder  => '_build_node_byte_size',
@@ -19,7 +21,7 @@ has _node_byte_size => (
 
 has _search_tree_size => (
     is       => 'ro',
-    isa      => 'Int',
+    isa      => Int,
     init_arg => undef,
     lazy     => 1,
     builder  => '_build_search_tree_size',
