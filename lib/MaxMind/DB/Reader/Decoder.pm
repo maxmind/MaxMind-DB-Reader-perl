@@ -12,9 +12,11 @@ use MaxMind::DB::Common qw( %TypeNumToName );
 use MaxMind::DB::Reader::Data::Container;
 use MaxMind::DB::Reader::Data::EndMarker;
 use Math::Int128 qw( uint128 );
+use MooX::Types::MooseLike::Base qw( Int );
+use NetAddr::IP::Util qw( bin2bcd );
 
-use Moose;
-use MooseX::StrictConstructor;
+use Moo;
+use MooX::StrictConstructor;
 
 with 'MaxMind::DB::Role::Debugs', 'MaxMind::DB::Reader::Role::Sysreader';
 
@@ -29,7 +31,7 @@ binmode STDERR, ':utf8'
 
 has _pointer_base => (
     is       => 'ro',
-    isa      => 'Int',
+    isa      => Int,
     init_arg => 'pointer_base',
     default  => 0,
 );

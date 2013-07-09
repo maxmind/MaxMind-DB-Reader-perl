@@ -7,16 +7,17 @@ use namespace::autoclean;
 use Data::Validate::Domain qw( is_hostname );
 use Data::Validate::IP qw( is_ipv4 is_ipv6 is_private_ipv4 );
 use MaxMind::DB::Metadata;
+use MooX::Types::MooseLike::Base qw( Str );
 use Socket qw( inet_ntoa );
 
-use Moose;
-use MooseX::StrictConstructor;
+use Moo;
+use MooX::StrictConstructor;
 
 with 'MaxMind::DB::Reader::Role::Reader';
 
 has file => (
     is       => 'ro',
-    isa      => 'Str',
+    isa      => Str,
     required => 1,
 );
 
