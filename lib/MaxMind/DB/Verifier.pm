@@ -15,8 +15,7 @@ use Try::Tiny;
 use Moo;
 use MooX::StrictConstructor;
 
-with 'MooseX::Getopt::Dashes',
-    'MaxMind::DB::Reader::Role::NodeReader',
+with 'MaxMind::DB::Reader::Role::NodeReader',
     'MaxMind::DB::Reader::Role::HasDecoder';
 
 has file => (
