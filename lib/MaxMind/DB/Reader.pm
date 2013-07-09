@@ -21,3 +21,5 @@ sub new {
 }
 
 1;
+
+# ABSTRACT: Read MaxMind DB files
