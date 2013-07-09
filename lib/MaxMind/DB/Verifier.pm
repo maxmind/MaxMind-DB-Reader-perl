@@ -5,13 +5,15 @@ use warnings;
 use namespace::autoclean;
 use autodie;
 
+use Getopt::Long;
 use IO::File;
 use MaxMind::DB::Common qw( DATA_SECTION_SEPARATOR_SIZE );
 use MaxMind::DB::Metadata;
+use MooX::Types::MooseLike::Base qw( Bool HashRef Int Str );
 use Try::Tiny;
 
-use Moose;
-use MooseX::StrictConstructor;
+use Moo;
+use MooX::StrictConstructor;
 
 with 'MooseX::Getopt::Dashes',
     'MaxMind::DB::Reader::Role::NodeReader',
@@ -19,19 +21,19 @@ with 'MooseX::Getopt::Dashes',
 
 has file => (
     is       => 'ro',
-    isa      => 'Str',
+    isa      => Str,
     required => 1,
 );
 
 has quiet => (
     is      => 'ro',
-    isa     => 'Bool',
+    isa     => Bool,
     default => 0,
 );
 
 has _max_pointer_in_search_tree => (
     is       => 'ro',
-    isa      => 'Int',
+    isa      => Int,
     init_arg => undef,
     lazy     => 1,
     builder  => '_build_max_pointer_in_search_tree',
@@ -39,21 +41,30 @@ has _max_pointer_in_search_tree => (
 
 has _search_tree_data_pointers => (
     is       => 'ro',
-    isa      => 'HashRef',
+    isa      => HashRef,
     init_arg => undef,
     default  => sub { {} },
 );
 
 has _error_count => (
-    traits   => ['Counter'],
-    is       => 'ro',
-    isa      => 'Int',
+    is       => 'rw',
+    writer   => '_set_error_count',
+    isa      => Int,
     init_arg => undef,
     default  => 0,
-    handles  => {
-        _inc_error_count => 'inc',
-    },
 );
+
+sub new_with_options {
+    my $class = shift;
+
+    my %opts;
+    GetOptions(
+        \%opts,
+        'file:s', 'quiet'
+    );
+
+    return $class->new(%opts);
+}
 
 sub run {
     my $self = shift;
@@ -245,7 +256,7 @@ sub _verification_error {
     my $self  = shift;
     my $error = shift;
 
-    $self->_inc_error_count();
+    $self->_set_error_count( $self->_error_count() + 1 );
 
     warn "$error\n";
 }
