@@ -12,7 +12,7 @@ use MaxMind::DB::Common qw( %TypeNumToName );
 use MaxMind::DB::Reader::Data::Container;
 use MaxMind::DB::Reader::Data::EndMarker;
 use Math::Int128 qw( uint128 );
-use MooX::Types::MooseLike::Base qw( Int );
+use MaxMind::DB::Types qw( Int );
 use NetAddr::IP::Util qw( bin2bcd );
 
 use Moo;

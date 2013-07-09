@@ -5,7 +5,7 @@ use warnings;
 use namespace::autoclean;
 use autodie;
 
-use MooX::Types::MooseLike::Base qw( Int );
+use MaxMind::DB::Types qw( Int );
 
 use Moo::Role;
 

@@ -6,7 +6,7 @@ use namespace::autoclean;
 use autodie;
 
 use Carp qw( confess );
-use MooX::Types::MooseLike::Base qw( FileHandle );
+use MaxMind::DB::Types qw( FileHandle );
 
 use Moo::Role;
 

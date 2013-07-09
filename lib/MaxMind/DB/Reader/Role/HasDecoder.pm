@@ -6,7 +6,7 @@ use namespace::autoclean;
 
 use MaxMind::DB::Common qw( DATA_SECTION_SEPARATOR_SIZE );
 use MaxMind::DB::Reader::Decoder;
-use MooX::Types::MooseLike::Base qw( InstanceOf );
+use MaxMind::DB::Types qw( Decoder );
 
 use Moo::Role;
 
@@ -17,7 +17,7 @@ with 'MaxMind::DB::Role::Debugs';
 
 has _decoder => (
     is       => 'ro',
-    isa      => InstanceOf['MaxMind::DB::Reader::Decoder'],
+    isa      => Decoder,
     init_arg => undef,
     lazy     => 1,
     builder  => '_build_decoder',

@@ -9,7 +9,7 @@ use Getopt::Long;
 use IO::File;
 use MaxMind::DB::Common qw( DATA_SECTION_SEPARATOR_SIZE );
 use MaxMind::DB::Metadata;
-use MooX::Types::MooseLike::Base qw( Bool HashRef Int Str );
+use MaxMind::DB::Types qw( Bool HashRef Int Str );
 use Try::Tiny;
 
 use Moo;
