@@ -11,7 +11,6 @@ use Encode ();
 use MaxMind::DB::Reader::Data::Container;
 use MaxMind::DB::Reader::Data::EndMarker;
 use Math::Int128 qw( uint128 );
-use NetAddr::IP::Util qw( bin2bcd );
 
 use Moose;
 use MooseX::StrictConstructor;
@@ -304,10 +303,16 @@ sub _decode_uint {
         return unpack( 'N' => $self->_zero_pad_left( $buffer, $bytes ) );
     }
     else {
-        return uint128(0)
-            if $size == 0;
+        my $int = uint128(0);
 
-        return uint128( bin2bcd( $self->_zero_pad_left( $buffer, 16 ) ) );
+        return $int if $size == 0;
+
+        my @unpacked = unpack( 'NNNN', $self->_zero_pad_left( $buffer, 16 ) );
+        for my $piece (@unpacked) {
+            $int = ( $int << 32 ) | $piece;
+        }
+
+        return $int;
     }
 }
 
