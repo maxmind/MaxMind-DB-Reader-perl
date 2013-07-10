@@ -8,7 +8,7 @@ use autodie;
 use Carp qw( confess );
 use Data::IEEE754 qw( unpack_double_be unpack_float_be );
 use Encode ();
-use MaxMind::DB::Common qw( %TypeNumToName );
+use MaxMind::DB::Common 0.031000 qw( %TypeNumToName );
 use MaxMind::DB::Reader::Data::Container;
 use MaxMind::DB::Reader::Data::EndMarker;
 use Math::Int128 qw( uint128 );
