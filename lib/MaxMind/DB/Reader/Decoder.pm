@@ -8,7 +8,7 @@ use autodie;
 use Carp qw( confess );
 use Data::IEEE754 qw( unpack_double_be unpack_float_be );
 use Encode ();
-use MaxMind::DB::Common qw( %TypeNumToString );
+use MaxMind::DB::Common qw( %TypeNumToName );
 use MaxMind::DB::Reader::Data::Container;
 use MaxMind::DB::Reader::Data::EndMarker;
 use Math::Int128 qw( uint128 );
@@ -56,7 +56,7 @@ sub decode {
     $ctrl_byte = unpack( C => $ctrl_byte );
 
     # The type is encoded in the first 3 bits of the byte.
-    my $type = $TypeNumToString{ $ctrl_byte >> 5 };
+    my $type = $TypeNumToName{ $ctrl_byte >> 5 };
 
     $self->_debug_string( 'Type', $type )
         if DEBUG;
@@ -87,7 +87,7 @@ sub decode {
             "Something went horribly wrong in the decoder. An extended type resolved to a type number < 8 ($type_num)"
             unless $type_num >= 8;
 
-        $type = $TypeNumToString{$type_num};
+        $type = $TypeNumToName{$type_num};
         $offset++;
     }
 
