@@ -8,19 +8,8 @@ use lib 't/lib';
 use Test::MaxMind::DB::Reader;
 
 use MaxMind::DB::Reader::Decoder;
-use MaxMind::DB::Writer::Serializer;
 
-my $serializer = MaxMind::DB::Writer::Serializer->new(
-    map_key_type_callback => sub { 'utf8_string' } );
-
-$serializer->store_data( map => { long_key  => 'long_value1' } );
-$serializer->store_data( map => { long_key  => 'long_value2' } );
-$serializer->store_data( map => { long_key2 => 'long_value1' } );
-$serializer->store_data( map => { long_key2 => 'long_value2' } );
-$serializer->store_data( map => { long_key  => 'long_value1' } );
-$serializer->store_data( map => { long_key2 => 'long_value2' } );
-
-open my $fh, '<', $serializer->buffer();
+open my $fh, '<', 'maxmind-db/test-data/maps-with-pointers.raw';
 
 my $decoder = MaxMind::DB::Reader::Decoder->new( data_source => $fh );
 
