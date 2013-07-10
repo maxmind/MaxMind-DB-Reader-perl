@@ -5,7 +5,7 @@ use warnings;
 use namespace::autoclean;
 use autodie;
 
-use Net::Works::Address;
+use Net::Works::Address 0.12;
 
 use Moo::Role;
 
