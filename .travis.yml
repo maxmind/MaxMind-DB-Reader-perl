@@ -18,7 +18,7 @@ install:
    - cd common
    - "dzil authordeps --missing | xargs -n 5 -P 10 cpanm --quiet --notest"
    - "dzil listdeps --missing  | grep -v MaxMind::DB | cpanm --quiet --notest"
-   - dzil install --install-comman "cpanm --quiet --notest ."
+   - dzil install --install-command "cpanm --quiet --notest ."
    - cd ..
    - "dzil authordeps --missing | xargs -n 5 -P 10 cpanm --quiet --notest"
    - "dzil listdeps --missing | grep -v MaxMind::DB | cpanm --quiet --notest"
