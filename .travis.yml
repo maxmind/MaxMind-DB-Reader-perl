@@ -10,17 +10,18 @@ perl:
 
 before_install:
    - export AUTOMATED_TESTING=1 HARNESS_OPTIONS=j10:c HARNESS_TIMER=1 SKIP_POD_LINKCHECK=1
+   - git submodule update --init --recursive
 
 install:
    - cpanm --quiet --notest --skip-satisfied Dist::Zilla Pod::Coverage::Moose Pod::Weaver::Section::Contributors Test::Spelling
    - git clone --branch=master git://github.com/maxmind/MaxMind-DB-Common-perl.git common
    - cd common
    - "dzil authordeps --missing | xargs -n 5 -P 10 cpanm --quiet --notest"
-   - "dzil listdeps --missing  | grep -v MaxMind::DB | cpanm --verbose"
+   - "dzil listdeps --missing  | grep -v MaxMind::DB | cpanm --quiet --notest"
    - dzil install --install-comman "cpanm --quiet --notest ."
    - cd ..
    - "dzil authordeps --missing | xargs -n 5 -P 10 cpanm --quiet --notest"
-   - "dzil listdeps --missing | grep -v MaxMind::DB | cpanm --verbose"
+   - "dzil listdeps --missing | grep -v MaxMind::DB | cpanm --quiet --notest"
 
 script:
    - dzil test --release
