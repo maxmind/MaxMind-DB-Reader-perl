@@ -15,7 +15,7 @@ with 'MaxMind::DB::Role::Debugs',
     'MaxMind::DB::Reader::Role::NodeReader',
     'MaxMind::DB::Reader::Role::HasDecoder';
 
-sub data_for_address {
+sub _data_for_address {
     my $self = shift;
     my $addr = shift;
 

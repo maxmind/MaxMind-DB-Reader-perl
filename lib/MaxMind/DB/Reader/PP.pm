@@ -49,7 +49,7 @@ sub record_for_address {
     die "The IP address you provided ($addr) is not a public IP address"
         if is_private_ipv4($addr) || _is_private_ipv6($addr);
 
-    return $self->data_for_address($addr);
+    return $self->_data_for_address($addr);
 }
 
 sub record_for_hostname {

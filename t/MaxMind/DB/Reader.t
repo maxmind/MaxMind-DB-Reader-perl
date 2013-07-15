@@ -55,7 +55,7 @@ sub _test_ipv4_lookups {
         my $expect = ( $ip_version == 6 ? '::' : q{} ) . $ip;
 
         is_deeply(
-            $reader->data_for_address($ip),
+            $reader->record_for_address($ip),
             { ip => $expect },
             "found expected data record for $ip - $filename"
         );
@@ -76,7 +76,7 @@ sub _test_ipv4_lookups {
         $expect = '::' . $expect if $ip_version == 6;
 
         is_deeply(
-            $reader->data_for_address($ip),
+            $reader->record_for_address($ip),
             { ip => $expect },
             "found expected data record for $ip - $filename"
         );
@@ -84,7 +84,7 @@ sub _test_ipv4_lookups {
 
     for my $ip ( '1.1.1.33', '255.254.253.123' ) {
         is(
-            $reader->data_for_address($ip),
+            $reader->record_for_address($ip),
             undef,
             "no data found for $ip - $filename"
         );
@@ -120,7 +120,7 @@ sub _test_ipv6_lookups {
 
     for my $ip ( map { $_->first()->as_string() } @subnets ) {
         is_deeply(
-            $reader->data_for_address($ip),
+            $reader->record_for_address($ip),
             { ip => $ip },
             "found expected data record for $ip - $filename"
         );
@@ -139,7 +139,7 @@ sub _test_ipv6_lookups {
 
         my ( $ip, $expect ) = @{$pair};
         is_deeply(
-            $reader->data_for_address($ip),
+            $reader->record_for_address($ip),
             { ip => $expect },
             "found expected data record for $ip - $filename"
         );
@@ -147,7 +147,7 @@ sub _test_ipv6_lookups {
 
     for my $ip ( '1.1.1.33', '255.254.253.123', '89fa::' ) {
         is(
-            $reader->data_for_address($ip),
+            $reader->record_for_address($ip),
             undef,
             "no data found for $ip - $filename"
         );
