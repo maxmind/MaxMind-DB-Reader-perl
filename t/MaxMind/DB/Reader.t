@@ -34,7 +34,7 @@ for my $record_size ( 24, 28, 32 ) {
         'exception when no IP address is passed to record_for_address()'
     );
 
-    for my $bad (qw( foo 023.2.3.4 1.2.3 2003::abcd::24 -@#@#*>< )) {
+    for my $bad (qw( foo 023.2.3.4 1.2.3 2003::abcd::24 -@@*>< )) {
         like(
             exception { $reader->record_for_address($bad) },
             qr/\QThe IP address you provided ($bad) is not a valid IPv4 or IPv6 address\E/,
