@@ -23,3 +23,10 @@ sub new {
 1;
 
 # ABSTRACT: Read MaxMind DB files
+
+__END__
+
+=head1 DESCRIPTION
+
+This first release is being done for the sake of the L<GeoIP2> package. Real
+documentation for this distro is forthcoming.
