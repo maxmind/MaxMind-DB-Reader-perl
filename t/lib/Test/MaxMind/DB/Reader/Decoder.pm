@@ -55,7 +55,7 @@ sub test_decoding_of_type {
                 $desc
             );
         }
-        elsif ( $type eq 'float' ) {
+        elsif ( $type eq 'float' || $type eq 'double' ) {
             cmp_ok(
                 abs( $value - $decoder->decode(0) ),
                 '<',
