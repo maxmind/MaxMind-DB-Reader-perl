@@ -43,4 +43,5 @@ __PACKAGE__->meta()->make_immutable();
 
 1;
 
-# ABSTRACT: Read MaxMind DB files
+# ABSTRACT: Pure Perl implementation of the MaxMind DB reader code
+
