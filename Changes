@@ -4,6 +4,11 @@
   possible in the future, and patches are welcome, but it's a fair bit of
   work, starting with getting Socket to support inet_pton on 5.8.x.
 
+- Fixed test failures related to imprecise double storage. On some machines, a
+  decoded double may be slightly off from the expected value because of
+  floating point precision issues. The tests now just check that the value is
+  within 0.001 of what we expect.
+
 
 0.040000 2013-07-16
 
