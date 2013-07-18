@@ -3,6 +3,8 @@ package MaxMind::DB::Reader;
 use strict;
 use warnings;
 
+use 5.010000;
+
 use Module::Implementation;
 
 my $Implementation;
@@ -27,6 +29,8 @@ sub new {
 __END__
 
 =head1 DESCRIPTION
+
+This module requires Perl 5.10+.
 
 This first release is being done for the sake of the L<GeoIP2> package. Real
 documentation for this distro is forthcoming.
