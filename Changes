@@ -1,5 +1,7 @@
 {{$NEXT}}
 
+0.040002 2013-07-18
+
 - Explicitly require Perl 5.10+ for now. Getting this working on 5.8 might be
   possible in the future, and patches are welcome, but it's a fair bit of
   work, starting with getting Socket to support inet_pton on 5.8.x.
