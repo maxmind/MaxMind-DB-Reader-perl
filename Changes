@@ -1,5 +1,7 @@
 {{$NEXT}}
 
+0.040003 2013-07-18
+
 0.040002 2013-07-18
 
 - Explicitly require Perl 5.10+ for now. Getting this working on 5.8 might be
