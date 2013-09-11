@@ -59,7 +59,7 @@ main();
 sub _commify {
     my $str = reverse $_[0];
 
-    $str =~ s/(\d\d\d)/$1,/g;
+    $str =~ s/(\d\d\d)(?=\d)/$1,/g;
 
     return scalar reverse $str;
 }
