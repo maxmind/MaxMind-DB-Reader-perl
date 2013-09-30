@@ -5,7 +5,9 @@ use warnings;
 use namespace::autoclean;
 use autodie;
 
-use Data::Validate::IP 0.16 qw( is_ipv4 is_ipv6 is_private_ipv4 is_private_ipv6 );
+use Data::Validate::IP 0.16
+    qw( is_ipv4 is_ipv6 is_private_ipv4 is_private_ipv6 );
+use MaxMind::DB::Types qw( Int );
 use Net::Works::Address 0.12;
 
 use Moo::Role;
@@ -15,6 +17,14 @@ use constant DEBUG => $ENV{MAXMIND_DB_READER_DEBUG};
 with 'MaxMind::DB::Role::Debugs',
     'MaxMind::DB::Reader::Role::NodeReader',
     'MaxMind::DB::Reader::Role::HasDecoder';
+
+has _ipv4_start_node => (
+    is       => 'ro',
+    isa      => Int,
+    init_arg => undef,
+    lazy     => 1,
+    builder  => '_build_ipv4_start_node',
+);
 
 sub record_for_address {
     my $self = shift;
@@ -49,8 +59,7 @@ sub _find_address_in_tree {
     my $addr = shift;
 
     my $address = Net::Works::Address->new_from_string(
-        string  => $addr,
-        version => $self->ip_version(),
+        string => $addr,
     );
 
     my $integer = $address->as_integer();
@@ -64,7 +73,8 @@ sub _find_address_in_tree {
 
     # The first node of the tree is always node 0, at the beginning of the
     # value
-    my $node_num = 0;
+    my $node_num = $self->ip_version == 6
+        && $address->version == 4 ? $self->_ipv4_start_node : 0;
 
     for my $bit_num ( reverse( 0 ... $address->bits - 1 ) ) {
         my $bit = 1 & ( $integer >> $bit_num );
@@ -119,6 +129,18 @@ sub _resolve_data_pointer {
     # We only want the data from the decoder, not the offset where it was
     # found.
     return scalar $self->_decoder()->decode($resolved);
+}
+
+sub _build_ipv4_start_node {
+    my $self = shift;
+
+    return 0 unless $self->ip_version == 6;
+
+    my $node_num = 0;
+
+    ($node_num) = $self->_read_node($node_num) for ( 1 ... 96 );
+
+    return $node_num;
 }
 
 around _build_metadata => sub {

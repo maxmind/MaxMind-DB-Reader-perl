@@ -1,0 +1,39 @@
+#!/usr/bin/env perl
+
+use strict;
+use warnings;
+
+use Data::Printer;
+use Getopt::Long;
+use MaxMind::DB::Reader;
+use Try::Tiny;
+
+sub main {
+    my $file;
+    my $iterations = 10000;
+    GetOptions(
+        'file:s' => \$file,
+        'iterations:i' => \$iterations,
+    );
+
+    my $reader = MaxMind::DB::Reader->new( file => $file );
+
+    my $start_time = time();
+    for my $i (1 .. $iterations) {
+        print "$i\n" if $i % 1000 == 0;
+
+        # get a random IPv4 address. Not using Net::Works due to possible
+        # speed issues
+        my $ip = join '.', unpack 'C4', pack 'N', int(rand(2**32-1));
+
+        # Catch exceptions from unknown addresses
+        try {
+           my $record = $reader->record_for_address($ip);
+        };
+    }
+
+    print $iterations / (time() - $start_time) . " lookups per second \n";
+}
+
+main();
+
