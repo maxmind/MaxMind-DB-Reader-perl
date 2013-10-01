@@ -138,7 +138,13 @@ sub _build_ipv4_start_node {
 
     my $node_num = 0;
 
-    ($node_num) = $self->_read_node($node_num) for ( 1 ... 96 );
+    for ( 1 ... 96 ) {
+        my ($next_node_num) = $self->_read_node($node_num);
+
+        # We stop early if the next node is a leaf node.
+        last if $next_node_num >= $self->node_count();
+        $node_num = $next_node_num;
+    }
 
     return $node_num;
 }
