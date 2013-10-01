@@ -9,7 +9,6 @@ use lib 't/lib';
 use Test::MaxMind::DB::Common::Util qw( standard_test_metadata );
 use Test::MaxMind::DB::Reader;
 
-use File::Temp qw( tempdir );
 use Net::Works::Network;
 
 use MaxMind::DB::Reader;
