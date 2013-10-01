@@ -73,39 +73,40 @@ sub _find_address_in_tree {
 
     # The first node of the tree is always node 0, at the beginning of the
     # value
-    my $node_num = $self->ip_version == 6
+    my $node = $self->ip_version == 6
         && $address->version == 4 ? $self->_ipv4_start_node : 0;
 
     for my $bit_num ( reverse( 0 ... $address->bits - 1 ) ) {
+        last if $node >= $self->node_count();
+
+        $self->_debug_message('Record is a node number')
+            if DEBUG;
+
         my $bit = 1 & ( $integer >> $bit_num );
 
-        my ( $left, $right ) = $self->_read_node($node_num);
+        my ( $left, $right ) = $self->_read_node($node);
 
-        my $record = $bit ? $right : $left;
+        $node = $bit ? $right : $left;
 
         if (DEBUG) {
             $self->_debug_string( 'Bit #',     $address->bits() - $bit_num );
             $self->_debug_string( 'Bit value', $bit );
             $self->_debug_string( 'Record',    $bit ? 'right' : 'left' );
-            $self->_debug_string( 'Record value', $record );
+            $self->_debug_string( 'Record value', $node );
         }
 
-        if ( $record == $self->node_count() ) {
-            $self->_debug_message('Record is empty')
-                if DEBUG;
-            return;
-        }
+    }
 
-        if ( $record >= $self->node_count() ) {
-            $self->_debug_message('Record is a data pointer')
-                if DEBUG;
-            return $record;
-        }
-
-        $self->_debug_message('Record is a node number')
+    if ( $node == $self->node_count() ) {
+        $self->_debug_message('Record is empty')
             if DEBUG;
+        return;
+    }
 
-        $node_num = $record;
+    if ( $node >= $self->node_count() ) {
+        $self->_debug_message('Record is a data pointer')
+            if DEBUG;
+        return $node;
     }
 }
 
@@ -139,11 +140,8 @@ sub _build_ipv4_start_node {
     my $node_num = 0;
 
     for ( 1 ... 96 ) {
-        my ($next_node_num) = $self->_read_node($node_num);
-
-        # We stop early if the next node is a leaf node.
-        last if $next_node_num >= $self->node_count();
-        $node_num = $next_node_num;
+        ($node_num) = $self->_read_node($node_num);
+        last if $node_num >= $self->node_count();
     }
 
     return $node_num;
