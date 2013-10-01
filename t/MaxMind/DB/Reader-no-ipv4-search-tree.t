@@ -5,6 +5,9 @@ use autodie;
 use Test::Fatal;
 use Test::More;
 
+use lib 't/lib';
+use Test::MaxMind::DB::Reader;
+
 use MaxMind::DB::Reader;
 
 my $reader = MaxMind::DB::Reader->new(
