@@ -4,7 +4,7 @@ use strict;
 use warnings;
 use namespace::autoclean;
 
-use MaxMind::DB::Types qw( Str );
+use MaxMind::DB::Types qw( Str Int );
 
 use Moo;
 use MooX::StrictConstructor;

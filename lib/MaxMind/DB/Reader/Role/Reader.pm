@@ -7,7 +7,6 @@ use autodie;
 
 use Data::Validate::IP 0.16
     qw( is_ipv4 is_ipv6 is_private_ipv4 is_private_ipv6 );
-use MaxMind::DB::Types qw( Int );
 use Net::Works::Address 0.12;
 
 use Moo::Role;
