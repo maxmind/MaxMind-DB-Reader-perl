@@ -5,9 +5,16 @@ use warnings;
 
 use Getopt::Long;
 use IO::Handle;
-use JSON;
+# JSON::XS seems to have a bad interaction with the TO_JSON() sub we define
+# below. It dies with "Modification of a read-only value attempted at
+# ./bin/dump-database line X."
+use JSON::PP;
 use MaxMind::DB::Reader;
 use Net::Works::Network;
+
+no warnings 'once';
+*Math::UInt128::TO_JSON = sub { return $_[0] . q{} }
+    unless Math::UInt128->can('TO_JSON');
 
 sub main {
     my $file;
@@ -26,7 +33,7 @@ sub main {
     print "]\n";
 }
 
-my $JSON = JSON->new()->utf8->allow_nonref()->pretty();
+my $JSON = JSON::PP->new()->utf8->allow_nonref()->pretty()->convert_blessed();
 
 sub _dump_entry {
     my $ip_version = shift;
