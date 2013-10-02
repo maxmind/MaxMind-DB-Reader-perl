@@ -59,9 +59,7 @@ sub _find_address_in_tree {
     my $self = shift;
     my $addr = shift;
 
-    my $address = Net::Works::Address->new_from_string(
-        string => $addr,
-    );
+    my $address = Net::Works::Address->new_from_string( string => $addr );
 
     my $integer = $address->as_integer();
 
