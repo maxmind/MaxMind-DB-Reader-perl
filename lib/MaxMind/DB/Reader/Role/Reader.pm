@@ -74,7 +74,7 @@ sub _find_address_in_tree {
     # The first node of the tree is always node 0, at the beginning of the
     # value
     my $node = $self->ip_version == 6
-        && $address->version == 4 ? $self->_ipv4_start_node : 0;
+        && $address->version == 4 ? $self->_ipv4_start_node() : 0;
 
     for my $bit_num ( reverse( 0 ... $address->bits - 1 ) ) {
         last if $node >= $self->node_count();
