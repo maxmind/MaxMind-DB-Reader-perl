@@ -20,6 +20,14 @@ has file => (
     required => 1,
 );
 
+has _ipv4_start_node => (
+    is       => 'ro',
+    isa      => Int,
+    init_arg => undef,
+    lazy     => 1,
+    builder  => '_build_ipv4_start_node',
+);
+
 use constant DEBUG => $ENV{MAXMIND_DB_READER_DEBUG};
 
 sub BUILD {

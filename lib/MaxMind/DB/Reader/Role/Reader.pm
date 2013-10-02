@@ -16,14 +16,6 @@ requires qw( _data_for_address _build_metadata );
 
 use constant DEBUG => $ENV{MAXMIND_DB_READER_DEBUG};
 
-has _ipv4_start_node => (
-    is       => 'ro',
-    isa      => Int,
-    init_arg => undef,
-    lazy     => 1,
-    builder  => '_build_ipv4_start_node',
-);
-
 sub record_for_address {
     my $self = shift;
     my $addr = shift;
