@@ -50,6 +50,58 @@ for my $record_size ( 24, 28, 32 ) {
     }
 }
 
+{
+    my $reader = MaxMind::DB::Reader->new(
+        file => 'maxmind-db/test-data/MaxMind-DB-test-mixed-24.mmdb' );
+
+    my @networks;
+    my $cb = sub {
+        my $ipnum = shift;
+        my $depth = shift;
+
+        push @networks,
+            Net::Works::Network->new_from_integer(
+            integer     => $ipnum,
+            mask_length => $depth,
+            ip_version  => 6,
+            )->as_string();
+    };
+
+    $reader->iterate_search_tree($cb);
+
+    my @expect = (
+        '::1.1.1.1/128',
+        '::1.1.1.2/127',
+        '::1.1.1.4/126',
+        '::1.1.1.8/125',
+        '::1.1.1.16/124',
+        '::1.1.1.63/128',
+        '::1:ffff:ffff/128',
+        '::3:ffff:ffc0/122',
+        '::3:ffff:fff0/124',
+        '::3:ffff:fff8/125',
+        '::3:ffff:fffe/127',
+        '::ffff:255.255.255.255/128',
+        '::ffff:255.255.255.254/127',
+        '::ffff:255.255.255.252/126',
+        '::ffff:255.255.255.248/125',
+        '::ffff:255.255.255.240/124',
+        '::ffff:255.255.255.255/128',
+        '2002:101:101::/48',
+        '2002:101:102::/47',
+        '2002:101:104::/46',
+        '2002:101:108::/45',
+        '2002:101:110::/44',
+        '2002:101:13f::/48',
+    );
+
+    is_deeply(
+        \@networks,
+        \@expect,
+        '$reader->iterate_search_tree() finds all the networks in the database'
+    );
+}
+
 done_testing();
 
 sub _test_ipv4_lookups {
