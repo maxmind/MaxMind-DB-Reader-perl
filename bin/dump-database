@@ -21,7 +21,9 @@ sub main {
     # For large databases this iteration could take a long time so it's good
     # to send output as it's available.
     STDOUT->autoflush(1);
+    print "[\n";
     $reader->iterate_search_tree( sub { _dump_entry( $ip_version, @_ ) } );
+    print "]\n";
 }
 
 my $JSON = JSON->new()->utf8->allow_nonref()->pretty();
@@ -38,12 +40,11 @@ sub _dump_entry {
         ip_version  => $ip_version,
     );
 
-    my $output = $network->as_string() . "\n";
-    my $encoded = $JSON->encode($entry_data);
+    my $encoded = $JSON->encode( { $network->as_string => $entry_data } );
     $encoded =~ s/^/  /mg;
-    $output .= $encoded . "\n";
+    $encoded =~ s/}$/},/s;
 
-    print $output;
+    print $encoded;
 }
 
 main();
