@@ -12,7 +12,12 @@ use Net::Works::Address 0.12;
 
 use Moo::Role;
 
-requires qw( _data_for_address _build_metadata _read_node );
+requires qw(
+    _build_metadata
+    _data_for_address
+    _read_node
+    _resolve_data_pointer
+);
 
 use constant DEBUG => $ENV{MAXMIND_DB_READER_DEBUG};
 
