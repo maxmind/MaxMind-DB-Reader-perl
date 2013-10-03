@@ -22,7 +22,7 @@ use MaxMind::DB::Reader;
     is( $record->{uint32}, 2**28, 'decode uint32' );
     is( $record->{int32}, -1 * ( 2**28 ), 'decode int32' );
     is( $record->{uint64}, uint128(1) << 60, 'decode uint64' );
-#    is( $record->{uint128}, uint128(1) << 120, 'decode uint128' );
+    is( $record->{uint128}, uint128(1) << 120, 'decode uint128' );
     is_deeply( $record->{array}, [ 1, 2, 3 ], 'decode array' );
 
     is_deeply(
