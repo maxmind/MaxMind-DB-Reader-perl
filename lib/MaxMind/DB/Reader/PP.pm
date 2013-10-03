@@ -60,7 +60,7 @@ sub _data_for_address {
 
     return undef unless $pointer;
 
-    return $self->_resolve_data_pointer($pointer);
+    return $self->_get_entry_data($pointer);
 }
 
 sub _find_address_in_tree {
@@ -117,7 +117,7 @@ sub _find_address_in_tree {
     }
 }
 
-sub _resolve_data_pointer {
+sub _get_entry_data {
     my $self    = shift;
     my $pointer = shift;
 

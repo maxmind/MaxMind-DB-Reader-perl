@@ -15,8 +15,8 @@ use Moo::Role;
 requires qw(
     _build_metadata
     _data_for_address
+    _get_entry_data
     _read_node
-    _resolve_data_pointer
 );
 
 use constant DEBUG => $ENV{MAXMIND_DB_READER_DEBUG};
@@ -79,7 +79,7 @@ sub _iterate_search_tree {
         else {
             $callback->(
                 $ipnum, $depth,
-                $self->_resolve_data_pointer($value)
+                $self->_get_entry_data($value)
             );
         }
     }
