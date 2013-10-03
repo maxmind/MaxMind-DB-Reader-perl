@@ -118,11 +118,11 @@ sub _find_address_in_tree {
 }
 
 sub _get_entry_data {
-    my $self    = shift;
-    my $pointer = shift;
+    my $self   = shift;
+    my $offset = shift;
 
     my $resolved
-        = ( $pointer - $self->node_count() ) + $self->_search_tree_size();
+        = ( $offset - $self->node_count() ) + $self->_search_tree_size();
 
     if (DEBUG) {
         my $node_count = $self->node_count();
@@ -130,7 +130,7 @@ sub _get_entry_data {
 
         $self->_debug_string(
             'Resolved data pointer',
-            "( $pointer - $node_count ) + $tree_size = $resolved"
+            "( $offset - $node_count ) + $tree_size = $resolved"
         );
     }
 
