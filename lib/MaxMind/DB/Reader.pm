@@ -6,6 +6,7 @@ use warnings;
 use 5.010000;
 
 use Module::Implementation;
+use Role::Tiny 1.003000 ();
 
 my $Implementation;
 
