@@ -39,28 +39,39 @@ sub record_for_address {
 }
 
 sub iterate_search_tree {
-    my $self     = shift;
-    my $callback = shift;
+    my $self          = shift;
+    my $data_callback = shift;
+    my $node_callback = shift;
 
     my $node_num  = 0;
     my $ipnum     = $self->ip_version() == 4 ? 0 : uint128(0);
     my $depth     = 1;
     my $max_depth = $self->ip_version() == 4 ? 32 : 128;
 
-    $self->_iterate_search_tree( $callback, $node_num, $ipnum, $depth, $max_depth );
+    $self->_iterate_search_tree(
+        $data_callback,
+        $node_callback,
+        $node_num,
+        $ipnum,
+        $depth,
+        $max_depth,
+    );
 }
 
 sub _iterate_search_tree {
-    my $self     = shift;
-    my $callback = shift;
-    my $node_num = shift;
-    my $ipnum    = shift;
-    my $depth    = shift;
-    my $max_depth = shift;
+    my $self          = shift;
+    my $data_callback = shift;
+    my $node_callback = shift;
+    my $node_num      = shift;
+    my $ipnum         = shift;
+    my $depth         = shift;
+    my $max_depth     = shift;
 
     no warnings 'recursion';
 
     my ( $left, $right ) = $self->_read_node($node_num);
+    $node_callback->( $node_num, $left, $right ) if $node_callback;
+
     for my $value ( $left, $right ) {
 
         # We ignore empty branches of the search tree
@@ -72,12 +83,16 @@ sub _iterate_search_tree {
 
         if ( $value <= $self->node_count() ) {
             $self->_iterate_search_tree(
-                $callback, $value, $ipnum,
-                $depth + 1, $max_depth,
+                $data_callback,
+                $node_callback,
+                $value,
+                $ipnum,
+                $depth + 1,
+                $max_depth,
             );
         }
-        else {
-            $callback->(
+        elsif ($data_callback) {
+            $data_callback->(
                 $ipnum, $depth,
                 $self->_get_entry_data($value)
             );

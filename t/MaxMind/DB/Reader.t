@@ -54,8 +54,13 @@ for my $record_size ( 24, 28, 32 ) {
     my $reader = MaxMind::DB::Reader->new(
         file => 'maxmind-db/test-data/MaxMind-DB-test-mixed-24.mmdb' );
 
+    my %nodes;
+    my $node_cb = sub {
+        $nodes{ $_[0] } = [ $_[1], $_[2] ];
+    };
+
     my @networks;
-    my $cb = sub {
+    my $data_cb = sub {
         my $ipnum = shift;
         my $depth = shift;
 
@@ -67,9 +72,25 @@ for my $record_size ( 24, 28, 32 ) {
             )->as_string();
     };
 
-    $reader->iterate_search_tree($cb);
+    $reader->iterate_search_tree($data_cb, $node_cb);
 
-    my @expect = (
+    my %node_tests = (
+        0   => [ 1,   225 ],
+        80  => [ 81,  197 ],
+        96  => [ 97,  225 ],
+        103 => [ 225, 104 ],
+        224 => [ 96,  225 ],
+    );
+
+    for my $node ( sort keys %node_tests ) {
+        is_deeply(
+            $nodes{$node},
+            $node_tests{$node},
+            "values seen for node $node match expected values"
+        );
+    }
+
+    my @expect_data = (
         '::1.1.1.1/128',
         '::1.1.1.2/127',
         '::1.1.1.4/126',
@@ -94,10 +115,9 @@ for my $record_size ( 24, 28, 32 ) {
         '2002:101:110::/44',
         '2002:101:13f::/48',
     );
-
     is_deeply(
         \@networks,
-        \@expect,
+        \@expect_data,
         '$reader->iterate_search_tree() finds all the networks in the database'
     );
 }

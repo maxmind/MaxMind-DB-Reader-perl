@@ -1,0 +1,29 @@
+#!/usr/bin/env perl
+
+use strict;
+use warnings;
+
+use Data::Printer;
+use Getopt::Long;
+use MaxMind::DB::Reader;
+
+sub main {
+    my $file;
+    GetOptions(
+        'file:s' => \$file,
+    );
+
+    my $reader = MaxMind::DB::Reader->new( file => $file );
+
+    my $node_callback = sub {
+        my $node_num     = shift;
+        my $left_record  = shift;
+        my $right_record = shift;
+
+        print "  $node_num:  $left_record  |  $right_record\n";
+    };
+
+    $reader->iterate_search_tree( undef, $node_callback );
+}
+
+main();
