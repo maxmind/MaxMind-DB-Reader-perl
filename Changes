@@ -8,9 +8,11 @@
 - Added a speed improvement for looking up IPv4 addresses in databases that
   contain both IPv4 and IPv6.
 
-- Made the dump-database script output valid JSON.
+- Renamed all scripts in bin to start with "mmdb-".
 
-- Added a dump-search-tree script.
+- Made the mmdb-dump-database script output valid JSON.
+
+- Added an mmdb-dump-search-tree script.
 
 
 0.040003 2013-07-18
