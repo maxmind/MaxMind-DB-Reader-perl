@@ -1,5 +1,18 @@
 {{$NEXT}}
 
+- Various changes and refactorings to support both a pure Perl and XS
+  backend. MaxMind::DB::Reader::XS is a separate distro on CPAN. If you
+  install this it will automatically be used when you use the
+  MaxMind::DB::Reader module.
+
+- Added a speed improvement for looking up IPv4 addresses in databases that
+  contain both IPv4 and IPv6.
+
+- Made the dump-database script output valid JSON.
+
+- Added a dump-search-tree script.
+
+
 0.040003 2013-07-18
 
 - No changes, didn't need to release, but thought I did.
