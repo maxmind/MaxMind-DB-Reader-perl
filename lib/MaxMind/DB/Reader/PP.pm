@@ -4,6 +4,7 @@ use strict;
 use warnings;
 use namespace::autoclean;
 
+use Carp qw( confess );
 use MaxMind::DB::Types qw( Str Int );
 
 use Moo;
@@ -35,10 +36,10 @@ sub BUILD {
 
     my $file = $self->file();
 
-    die "The file you specified ($file) does not exist"
+    die qq{Error opening database file "$file": The file does not exist.}
         unless -e $file;
 
-    die "The file you specified ($file) cannot be read"
+    die qq{Error opening database file "$file": The file cannot be read.}
         unless -r _;
 
     return;
@@ -123,6 +124,10 @@ sub _get_entry_data {
 
     my $resolved
         = ( $offset - $self->node_count() ) + $self->_search_tree_size();
+
+    if ($resolved > $self->_data_source_size) {
+        confess q{The MaxMind DB file's search tree is corrupt};
+    }
 
     if (DEBUG) {
         my $node_count = $self->node_count();

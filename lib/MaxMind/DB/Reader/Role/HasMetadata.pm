@@ -6,6 +6,7 @@ use namespace::autoclean;
 use autodie;
 
 require bytes;
+use Carp qw( confess );
 use List::AllUtils qw( min );
 use MaxMind::DB::Reader::Decoder;
 use MaxMind::DB::Metadata;
@@ -22,14 +23,6 @@ has metadata => (
     lazy     => 1,
     builder  => '_build_metadata',
     handles  => [ MaxMind::DB::Metadata->meta()->get_attribute_list() ],
-);
-
-has _data_source_size => (
-    is       => 'ro',
-    isa      => Int,
-    init_arg => undef,
-    lazy     => 1,
-    builder  => '_build_data_source_size',
 );
 
 has _data_section_end => (
@@ -65,9 +58,10 @@ sub _build_metadata {
 
     my $start = rindex( $last_block, $MetadataStartMarker );
 
-    die 'Could not find a MaxMind DB metadata marker in this file ('
-        . $self->file()
-        . '). Is this a valid MaxMind DB file?'
+    confess 'Error opening database file "'
+        . $self->file . '": '
+        . q{The MaxMind DB file is in a format this library can't handle }
+        . q{(can't find metadata marker).}
         unless $start >= 0;
 
     # XXX - this is really gross but I couldn't come up with a better way to
@@ -78,21 +72,14 @@ sub _build_metadata {
 
     $start += bytes::length($MetadataStartMarker);
 
-    open my $fh, '<', \( substr( $last_block, $start ) );
-
     my $raw = MaxMind::DB::Reader::Decoder->new(
-        data_source => $fh,
-    )->decode(0);
+        data_source  => $self->data_source,
+        pointer_base => $start,
+    )->decode($start);
 
     my $metadata = MaxMind::DB::Metadata->new($raw);
 
     return $metadata;
-}
-
-sub _build_data_source_size {
-    my $self = shift;
-
-    return ( stat $self->data_source() )[7];
 }
 
 1;
