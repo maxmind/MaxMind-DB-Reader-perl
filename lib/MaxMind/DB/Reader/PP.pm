@@ -42,6 +42,9 @@ sub BUILD {
     die qq{Error opening database file "$file": The file cannot be read.}
         unless -r _;
 
+    # Build the metadata right away to ensure file's validity
+    $self->metadata;
+
     return;
 }
 
