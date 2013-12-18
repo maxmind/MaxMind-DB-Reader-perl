@@ -42,7 +42,8 @@ sub test_decoding_of_type {
         open my $fh, '<', \$encoded;
 
         my $decoder = MaxMind::DB::Reader::Decoder->new(
-            data_source => $fh,
+            data_source       => $fh,
+            _data_source_size => length($encoded),
         );
 
         my $value = $decoder->decode(0);
