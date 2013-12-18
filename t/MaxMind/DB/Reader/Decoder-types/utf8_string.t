@@ -33,7 +33,8 @@ test_decoding_of_type( utf8_string => test_cases_for('utf8_string') );
     open my $fh, '<', \$buffer;
 
     my $decoder = MaxMind::DB::Reader::Decoder->new(
-        data_source => $fh,
+        data_source       => $fh,
+        _data_source_size => length $buffer,
     );
 
     my $string = $decoder->decode(0);
@@ -43,6 +44,5 @@ test_decoding_of_type( utf8_string => test_cases_for('utf8_string') );
         'utf8 flag is on for string returned by decoder'
     );
 }
-
 
 done_testing();

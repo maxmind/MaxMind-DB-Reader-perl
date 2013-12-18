@@ -41,7 +41,8 @@ for my $record_size ( 24, 28, 32 ) {
         );
     }
 
-    for my $private (qw( 10.44.51.212 10.0.0.3 172.16.99.44 fc00::24 fc00:1234:4bdf::1 )) {
+    for my $private (
+        qw( 10.44.51.212 10.0.0.3 172.16.99.44 fc00::24 fc00:1234:4bdf::1 )) {
         like(
             exception { $reader->record_for_address($private) },
             qr/\QThe IP address you provided ($private) is not a public IP address\E/,
@@ -72,7 +73,7 @@ for my $record_size ( 24, 28, 32 ) {
             )->as_string();
     };
 
-    $reader->iterate_search_tree($data_cb, $node_cb);
+    $reader->iterate_search_tree( $data_cb, $node_cb );
 
     my %node_tests = (
         0   => [ 1,   225 ],
@@ -137,11 +138,11 @@ sub _test_ipv4_lookups {
     my $reader = MaxMind::DB::Reader->new(
         file => "maxmind-db/test-data/$filename" );
 
-    my $ip_version = $file_type eq 'mixed' ? 6 :4;
+    my $ip_version = $file_type eq 'mixed' ? 6 : 4;
     _test_metadata(
         $reader,
         {
-            ip_version => $ip_version,
+            ip_version  => $ip_version,
             record_size => $record_size,
         },
         $filename,

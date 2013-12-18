@@ -38,7 +38,7 @@ use MaxMind::DB::Reader;
         exception { $reader->record_for_address('1.1.1.16') },
         qr/The MaxMind DB file's data section contains bad data \(unknown data type or corrupt data\)/,
         'received expected exception with broken data pointer'
-        );
+    );
 }
 
 {    # test non-database
@@ -54,7 +54,9 @@ use MaxMind::DB::Reader;
 {    # test missing file
 
     like(
-        exception { MaxMind::DB::Reader->new( file => 'does/not/exist.mmdb' ) },
+        exception {
+            MaxMind::DB::Reader->new( file => 'does/not/exist.mmdb' );
+        },
         qr/Error opening database file "does\/not\/exist.mmdb"/,
         'expected exception with file that does not exist'
     );

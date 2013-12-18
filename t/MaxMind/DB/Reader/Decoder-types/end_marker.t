@@ -19,7 +19,8 @@ use Test::MaxMind::DB::Reader;
     open my $fh, '<', \$buffer;
 
     my $decoder = MaxMind::DB::Reader::Decoder->new(
-        data_source => $fh,
+        data_source       => $fh,
+        _data_source_size => length $buffer,
     );
 
     my $container = $decoder->decode(0);

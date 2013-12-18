@@ -154,7 +154,8 @@ sub _verify_all_nodes {
         $node_num++;
 
         if ( $node_num % 10000 == 0 ) {
-            $self->_output("  checked $node_num nodes out of $expected_count");
+            $self->_output(
+                "  checked $node_num nodes out of $expected_count");
         }
     }
 }
@@ -181,7 +182,7 @@ sub _verify_all_nodes {
 
             my $resolved
                 = ( $records{$dir} - $self->node_count() )
-                    + $self->_search_tree_size();
+                + $self->_search_tree_size();
 
             if ( $resolved <= $self->_max_pointer_in_search_tree() ) {
                 $self->_search_tree_data_pointers()->{$resolved}
@@ -201,10 +202,10 @@ sub _verify_all_nodes {
 sub _verify_data_section {
     my $self = shift;
 
-    my $pointers = $self->_search_tree_data_pointers();
+    my $pointers      = $self->_search_tree_data_pointers();
     my $pointer_count = scalar keys %{$pointers};
 
-    my $decoder  = $self->_decoder();
+    my $decoder = $self->_decoder();
 
     my $data_section_start
         = $self->_search_tree_size() + DATA_SECTION_SEPARATOR_SIZE;

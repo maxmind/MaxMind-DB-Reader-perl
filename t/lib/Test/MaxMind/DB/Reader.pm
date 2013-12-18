@@ -1,4 +1,4 @@
-package # hide from PAUSE
+package    # hide from PAUSE
     Test::MaxMind::DB::Reader;
 
 use strict;
