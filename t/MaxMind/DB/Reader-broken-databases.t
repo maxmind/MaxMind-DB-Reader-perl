@@ -42,10 +42,8 @@ use MaxMind::DB::Reader;
 }
 
 {    # test non-database
-    my $reader = MaxMind::DB::Reader->new( file => 'Changes' );
-
     like(
-        exception { $reader->record_for_address('1.1.1.16') },
+        exception { MaxMind::DB::Reader->new( file => 'Changes' ) },
         qr/Error opening database file "Changes": The MaxMind DB file is in a format this library can't handle/,
         'expected exception with unknown file type'
     );
