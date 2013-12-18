@@ -42,6 +42,9 @@ sub decode {
     confess 'You must provide an offset to decode from when calling ->decode'
         unless defined $offset;
 
+    confess q{The MaxMind DB file's data section contains bad data (unknown data type or corrupt data)}
+        if $offset >= $self->_data_source_size;
+
     if (DEBUG) {
         $self->_debug_newline();
         $self->_debug_string( 'Offset', $offset );
@@ -179,6 +182,7 @@ sub _decode_double {
     my $buffer = shift;
     my $size   = shift;
 
+    $self->_verify_size(8, $size);
     return unpack_double_be($buffer);
 }
 
@@ -187,6 +191,7 @@ sub _decode_float {
     my $buffer = shift;
     my $size   = shift;
 
+    $self->_verify_size(4, $size);
     return unpack_float_be($buffer);
 }
 
@@ -338,6 +343,15 @@ sub _decode_boolean {
     my $offset = shift;
 
     return wantarray ? ( $size, $offset ) : $size;
+}
+
+sub _verify_size {
+    my $expected = shift;
+    my $actual = shift;
+
+    if ($expected != $actual) {
+        confess q{The MaxMind DB file's data section contains bad data (unknown data type or corrupt data)};
+        }
 }
 
 sub _size_from_ctrl_byte {
