@@ -1,5 +1,7 @@
 {{$NEXT}}
 
+0.050001 2013-12-24
+
 - Tests failed on some systems because of rounding errors with doubles. We now
   use Test::Number::Delta to deal with this. Reported by Anreas Koenig. Github
   issue #2.
