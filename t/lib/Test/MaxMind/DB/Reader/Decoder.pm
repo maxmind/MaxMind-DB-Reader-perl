@@ -3,10 +3,11 @@ package Test::MaxMind::DB::Reader::Decoder;
 use strict;
 use warnings;
 
-use MaxMind::DB::Reader::Decoder;
 use List::AllUtils qw( natatime );
+use MaxMind::DB::Reader::Decoder;
 use Scalar::Util qw( blessed );
 use Test::More;
+use Test::Number::Delta;
 
 use lib 't/lib';
 use Test::MaxMind::DB::Reader;
@@ -56,12 +57,7 @@ sub test_decoding_of_type {
             );
         }
         elsif ( $type eq 'float' || $type eq 'double' ) {
-            cmp_ok(
-                abs( $value - $decoder->decode(0) ),
-                '<',
-                0.001,
-                $desc
-            );
+            delta_ok( $value, $decoder->decode(0), $desc );
         }
         else {
             is(
