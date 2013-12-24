@@ -1,4 +1,3 @@
-# PP only
 use strict;
 use warnings;
 use utf8;
