@@ -50,7 +50,6 @@ use MaxMind::DB::Reader;
 }
 
 {    # test missing file
-
     like(
         exception {
             MaxMind::DB::Reader->new( file => 'does/not/exist.mmdb' );
