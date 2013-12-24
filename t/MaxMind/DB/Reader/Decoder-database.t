@@ -2,11 +2,12 @@ use strict;
 use warnings;
 use utf8;
 
-use Test::More;
 use lib 't/lib';
-use Test::MaxMind::DB::Reader;
 use Math::Int128 qw( uint128 );
 use MaxMind::DB::Reader;
+use Test::MaxMind::DB::Reader;
+use Test::More;
+use Test::Number::Delta;
 
 my $filename = 'MaxMind-DB-test-decoder.mmdb';
 my $reader
@@ -20,7 +21,7 @@ my $reader
         $record->{utf8_string}, 'unicode! ☯ - ♫',
         'decoded utf8_string has expected value'
     );
-    is( $record->{double}, 42.123456, 'decoded double has expected value' );
+    delta_ok( $record->{double}, 42.123456, 'decoded double has expected value' );
     is(
         $record->{bytes}, pack( 'N', 42 ),
         'decoded bytes has expected value'
@@ -56,8 +57,7 @@ my $reader
     );
 
     ok( $record->{boolean}, 'decoded bool is true' );
-    ok(
-        abs( $record->{float} - 1.1 ) < 0.00001,
+    delta_ok( $record->{float}, 1.1,
         'decoded float has expected value'
     );
 }
