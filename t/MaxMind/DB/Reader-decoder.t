@@ -1,3 +1,5 @@
+# Note that this is not actually a test of the Decoder class, and as such
+# applies to both the PP and XS databases.
 use strict;
 use warnings;
 use utf8;
