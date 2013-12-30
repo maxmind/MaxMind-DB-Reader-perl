@@ -1,5 +1,13 @@
 {{$NEXT}}
 
+- Added more checks for error conditions and broken databases.
+
+- Error messages should now be the same for the pure Perl and XS readers.
+
+- Added some more tests and made a small internals change to faciliate said
+  tests.
+
+
 0.050001 2013-12-24
 
 - Tests failed on some systems because of rounding errors with doubles. We now
