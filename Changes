@@ -1,5 +1,7 @@
 {{$NEXT}}
 
+0.050003 2014-01-13
+
 - Metadata reading in the pure Perl implementation was entirely broken on any
   database larger than the maximum metadata size (20kb).
 
