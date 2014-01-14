@@ -3,21 +3,26 @@
 use strict;
 use warnings;
 
+use Carp;
 use Data::Printer;
 use Getopt::Long;
 use MaxMind::DB::Reader;
+use Module::Runtime qw(use_module);
 use Time::HiRes qw( gettimeofday tv_interval );
 use Try::Tiny;
 
 sub main {
     my $file;
     my $iterations = 10000;
+    my $reader;
+
     GetOptions(
-        'file:s' => \$file,
+        'file:s'       => \$file,
         'iterations:i' => \$iterations,
+        'reader:s'     => \$reader,
     );
 
-    my $reader = MaxMind::DB::Reader->new( file => $file );
+    $reader = get_reader( reader => $reader, file => $file );
 
     my $start = [gettimeofday];
     for my $i (1 .. $iterations) {
@@ -42,3 +47,24 @@ sub main {
 
 main();
 
+sub get_reader {
+    my %args = @_;
+
+    my $reader = $args{reader};
+    my $file   = $args{file};
+
+    if ( !$reader ) {
+        return MaxMind::DB::Reader->new( file => $file );
+    }
+    elsif ( $reader =~ qr/^pp$/i ) {
+        use_module('MaxMind::DB::Reader::PP');
+        return MaxMind::DB::Reader::PP->new( file => $file );
+    }
+    elsif ( $reader =~ qr/^xs$/i ) {
+        use_module('MaxMind::DB::Reader::XS');
+        return MaxMind::DB::Reader::XS->new( file => $file );
+    }
+    else {
+        croak "If passed, reader must be either PP or XS, but you passed '$reader'\n"
+    }
+}
