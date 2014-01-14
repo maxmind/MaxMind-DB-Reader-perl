@@ -35,7 +35,9 @@ sub main {
     my $end = [gettimeofday];
     my $duration = tv_interval( $start, $end );
 
-    print $iterations / $duration . " lookups per second \n";
+    printf
+      "Looked up %d records in %f seconds, a speed of %f lookups / second\n",
+      $iterations, $duration, $iterations / $duration;
 }
 
 main();
