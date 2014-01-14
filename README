@@ -1,0 +1,24 @@
+NAME
+    MaxMind::DB::Reader - Read MaxMind DB files
+
+VERSION
+    version 0.050003
+
+DESCRIPTION
+    This module requires Perl 5.10+.
+
+    This first release is being done for the sake of the GeoIP2 package.
+    Real documentation for this distro is forthcoming.
+
+AUTHORS
+    *   Dave Rolsky <drolsky@maxmind.com>
+
+    *   Olaf Alders <oalders@maxmind.com>
+
+COPYRIGHT AND LICENSE
+    This software is Copyright (c) 2014 by MaxMind, Inc..
+
+    This is free software, licensed under:
+
+      The Artistic License 2.0 (GPL Compatible)
+
