@@ -19,7 +19,7 @@ sub main {
 
     my $reader = MaxMind::DB::Reader->new( file => $file );
 
-    my $start = [gettimeofday]; 
+    my $start = [gettimeofday];
     for my $i (1 .. $iterations) {
         print "$i\n" if $i % 1000 == 0;
 
