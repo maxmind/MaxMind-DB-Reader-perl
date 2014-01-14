@@ -6,6 +6,7 @@ use warnings;
 use Data::Printer;
 use Getopt::Long;
 use MaxMind::DB::Reader;
+use Time::HiRes qw( gettimeofday tv_interval );
 use Try::Tiny;
 
 sub main {
@@ -18,7 +19,7 @@ sub main {
 
     my $reader = MaxMind::DB::Reader->new( file => $file );
 
-    my $start_time = time();
+    my $start = [gettimeofday]; 
     for my $i (1 .. $iterations) {
         print "$i\n" if $i % 1000 == 0;
 
@@ -31,8 +32,10 @@ sub main {
            my $record = $reader->record_for_address($ip);
         };
     }
+    my $end = [gettimeofday];
+    my $duration = tv_interval( $start, $end );
 
-    print $iterations / (time() - $start_time) . " lookups per second \n";
+    print $iterations / $duration . " lookups per second \n";
 }
 
 main();
