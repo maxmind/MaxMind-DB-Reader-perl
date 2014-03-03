@@ -164,6 +164,3 @@ sub _build_ipv4_start_node {
 __PACKAGE__->meta()->make_immutable();
 
 1;
-
-# ABSTRACT: Pure Perl implementation of the MaxMind DB reader code
-
