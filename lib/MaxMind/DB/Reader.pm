@@ -82,7 +82,7 @@ The "file" parameter is a required attribute for the constructor. It must be a
 string containing a path to a file. The constructor will die if the file
 provided is not readable.
 
-You can also pass an addition parameter, "data_source", which must be a valid
+You can also pass an additional parameter, "data_source", which must be a valid
 filehandle. This is useful in testing. For example, you can have the reader
 read from a filehandle opened to a scalar reference. Under normal usage, the
 reader simply opens the provided file to read from.
@@ -111,7 +111,7 @@ of work for no good reason).
 The node callback is called for every node in the database's search tree. This
 callback is called with three arguments. These are the node's number (which is
 based on its position in the file) and the values of its left and right
-records. These values are themselves number. See the L<MaxMind DB
+records. These values are themselves numbers. See the L<MaxMind DB
 spec|http://maxmind.github.io/MaxMind-DB/> for more details on what node
 record values mean.
 
