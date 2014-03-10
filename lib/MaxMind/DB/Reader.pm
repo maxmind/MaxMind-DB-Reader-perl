@@ -38,11 +38,11 @@ __END__
 
 =head1 DESCRIPTION
 
-This module provides a low-level interface to the MaxMind DB file format. See
-http://maxmind.github.io/MaxMind-DB/ for the official format spec.
+This module provides a low-level interface to the L<MaxMind DB file
+format|http://maxmind.github.io/MaxMind-DB/>.
 
-If you are looking for an interface to MaxMind's GeoIP2 or GeoLite2
-downloadable databases (http://dev.maxmind.com/geoip/), you should also check
+If you are looking for an interface to MaxMind's L<GeoIP2 or GeoLite2
+downloadable databases|http://dev.maxmind.com/geoip/>, you should also check
 out the L<GeoIP2> distribution. That distribution provides a higher level OO
 interface to those databases.
 
