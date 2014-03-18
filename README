@@ -2,7 +2,7 @@ NAME
     MaxMind::DB::Reader - Read MaxMind DB files and look up IP addresses
 
 VERSION
-    version 0.050004
+    version 0.050005
 
 SYNOPSIS
         my $reader = MaxMind::DB::Reader->new( file => 'path/to/database.mmdb' );
@@ -10,12 +10,11 @@ SYNOPSIS
         my $record = $reader->record_for_address('1.2.3.4');
 
 DESCRIPTION
-    This module provides a low-level interface to the MaxMind DB file
-    format. See http://maxmind.github.io/MaxMind-DB/ for the official format
-    spec.
+    This module provides a low-level interface to the MaxMind DB file format
+    <http://maxmind.github.io/MaxMind-DB/>.
 
     If you are looking for an interface to MaxMind's GeoIP2 or GeoLite2
-    downloadable databases (http://dev.maxmind.com/geoip/), you should also
+    downloadable databases <http://dev.maxmind.com/geoip/>, you should also
     check out the GeoIP2 distribution. That distribution provides a higher
     level OO interface to those databases.
 
@@ -69,7 +68,7 @@ API
     the contents of the database, this can be a scalar or a reference to an
     array or hash.
 
-  $reader->iterator_search_tree( $data_callback, $node_callback )
+  $reader->iterate_search_tree( $data_callback, $node_callback )
     This method iterates over the entire search tree, calling the callbacks
     you provided for each data record and node in the tree.
 
