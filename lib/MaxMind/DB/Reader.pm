@@ -100,7 +100,7 @@ The method returns the data associated with the IP address. Depending on the
 contents of the database, this can be a scalar or a reference to an array or
 hash.
 
-=head2 $reader->iterator_search_tree( $data_callback, $node_callback )
+=head2 $reader->iterate_search_tree( $data_callback, $node_callback )
 
 This method iterates over the entire search tree, calling the callbacks you
 provided for each data record and node in the tree.
