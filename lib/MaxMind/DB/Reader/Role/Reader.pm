@@ -69,17 +69,17 @@ sub _iterate_search_tree {
 
     no warnings 'recursion';
 
-    my ( $left, $right ) = $self->_read_node($node_num);
-    $node_callback->( $node_num, $left, $right ) if $node_callback;
+    my @records = $self->_read_node($node_num);
+    $node_callback->( $node_num, @records ) if $node_callback;
 
-    for my $value ( $left, $right ) {
+    for my $idx ( 0..1 ) {
+        my $value = $records[$idx];
 
         # We ignore empty branches of the search tree
         next if $value == $self->node_count();
 
         my $one = $self->ip_version() == 4 ? 1 : uint128(1);
-
-        $ipnum |= ( $one << ( $max_depth - $depth ) ) if $value == $right;
+        $ipnum = $ipnum | ( $one << ( $max_depth - $depth ) ) if $idx;
 
         if ( $value <= $self->node_count() ) {
             $self->_iterate_search_tree(
