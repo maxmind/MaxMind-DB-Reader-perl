@@ -1,5 +1,9 @@
 {{$NEXT}}
 
+- Fixed some big bugs in the iterate_search_tree method. Both of them caused
+  it to report the wrong IP address to the data callback.
+
+
 0.050004 2014-03-10
 
 - Added basic docs for this distro.
