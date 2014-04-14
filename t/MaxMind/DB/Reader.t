@@ -13,43 +13,43 @@ use Net::Works::Network;
 
 use MaxMind::DB::Reader;
 
-# for my $record_size ( 24, 28, 32 ) {
-#     for my $file_type (qw( ipv4 mixed )) {
-#         _test_ipv4_lookups( $record_size, $file_type );
-#     }
+for my $record_size ( 24, 28, 32 ) {
+    for my $file_type (qw( ipv4 mixed )) {
+        _test_ipv4_lookups( $record_size, $file_type );
+    }
 
-#     for my $file_type (qw( ipv6 mixed )) {
-#         _test_ipv6_lookups( $record_size, $file_type );
-#     }
-# }
+    for my $file_type (qw( ipv6 mixed )) {
+        _test_ipv6_lookups( $record_size, $file_type );
+    }
+}
 
-# {
-#     my $reader = MaxMind::DB::Reader->new(
-#         file => 'maxmind-db/test-data/MaxMind-DB-test-mixed-24.mmdb' );
+{
+    my $reader = MaxMind::DB::Reader->new(
+        file => 'maxmind-db/test-data/MaxMind-DB-test-mixed-24.mmdb' );
 
-#     like(
-#         exception { $reader->record_for_address() },
-#         qr/You must provide an IP address to look up/,
-#         'exception when no IP address is passed to record_for_address()'
-#     );
+    like(
+        exception { $reader->record_for_address() },
+        qr/You must provide an IP address to look up/,
+        'exception when no IP address is passed to record_for_address()'
+    );
 
-#     for my $bad (qw( foo 023.2.3.4 1.2.3 2003::abcd::24 -@@*>< )) {
-#         like(
-#             exception { $reader->record_for_address($bad) },
-#             qr/\QThe IP address you provided ($bad) is not a valid IPv4 or IPv6 address\E/,
-#             "exception when a bad IP address ($bad) is passed to record_for_address()"
-#         );
-#     }
+    for my $bad (qw( foo 023.2.3.4 1.2.3 2003::abcd::24 -@@*>< )) {
+        like(
+            exception { $reader->record_for_address($bad) },
+            qr/\QThe IP address you provided ($bad) is not a valid IPv4 or IPv6 address\E/,
+            "exception when a bad IP address ($bad) is passed to record_for_address()"
+        );
+    }
 
-#     for my $private (
-#         qw( 10.44.51.212 10.0.0.3 172.16.99.44 fc00::24 fc00:1234:4bdf::1 )) {
-#         like(
-#             exception { $reader->record_for_address($private) },
-#             qr/\QThe IP address you provided ($private) is not a public IP address\E/,
-#             "exception when a private IP address ($private) is passed to record_for_address()"
-#         );
-#     }
-# }
+    for my $private (
+        qw( 10.44.51.212 10.0.0.3 172.16.99.44 fc00::24 fc00:1234:4bdf::1 )) {
+        like(
+            exception { $reader->record_for_address($private) },
+            qr/\QThe IP address you provided ($private) is not a public IP address\E/,
+            "exception when a private IP address ($private) is passed to record_for_address()"
+        );
+    }
+}
 
 {
     my $reader = MaxMind::DB::Reader->new(
