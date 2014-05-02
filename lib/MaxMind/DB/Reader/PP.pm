@@ -5,7 +5,7 @@ use warnings;
 use namespace::autoclean;
 
 use Carp qw( confess );
-use MaxMind::DB::Types qw( Str Int );
+use MaxMind::DB::Types qw( Int );
 
 use Moo;
 use MooX::StrictConstructor;
@@ -14,12 +14,6 @@ with 'MaxMind::DB::Reader::Role::Reader',
     'MaxMind::DB::Reader::Role::NodeReader',
     'MaxMind::DB::Reader::Role::HasDecoder',
     'MaxMind::DB::Role::Debugs';
-
-has file => (
-    is       => 'ro',
-    isa      => Str,
-    required => 1,
-);
 
 has _ipv4_start_node => (
     is       => 'ro',
