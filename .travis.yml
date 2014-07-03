@@ -15,6 +15,8 @@ before_install:
   - build-perl
   - perl -V
   - git submodule update --init --recursive
+  - cpanm --quiet --notest --skip-satisfied Dist::Zilla~5 Dist::Zilla::Plugin::PodWeaver Dist::Zilla::PluginBundle::ROKR Pod::Coverage::Moose Pod::Weaver::Section::Contributors Test::NoTabs Test::Spelling
+  - git clone --branch=master git://github.com/maxmind/MaxMind-DB-Common-perl.git common
   - cd common
   - "dzil authordeps --missing | xargs -n 5 -P 10 cpanm --quiet --notest"
   - "dzil listdeps --missing  | grep -v MaxMind::DB | cpanm --quiet --notest"
