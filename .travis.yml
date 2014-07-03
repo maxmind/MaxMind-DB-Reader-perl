@@ -14,6 +14,12 @@ before_install:
   - source perl-travis-helper/init
   - build-perl
   - perl -V
+  - git submodule update --init --recursive
+  - cd common
+  - "dzil authordeps --missing | xargs -n 5 -P 10 cpanm --quiet --notest"
+  - "dzil listdeps --missing  | grep -v MaxMind::DB | cpanm --quiet --notest"
+  - dzil install --install-command "cpanm --quiet --notest ."
+  - cd ..
   - build-dist
   - cd $BUILD_DIR
 
