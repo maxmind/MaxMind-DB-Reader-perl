@@ -122,8 +122,8 @@ sub _get_entry_data {
     my $resolved
         = ( $offset - $self->node_count() ) + $self->_search_tree_size();
 
-            confess q{The MaxMind DB file's search tree is corrupt}
-    if $resolved > $self->_data_source_size;
+    confess q{The MaxMind DB file's search tree is corrupt}
+        if $resolved > $self->_data_source_size;
 
     if (DEBUG) {
         my $node_count = $self->node_count();
