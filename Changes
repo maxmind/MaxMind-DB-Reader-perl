@@ -1,5 +1,10 @@
 {{$NEXT}}
 
+- An exception is no longer thrown when a private IP address is passed to
+  record_for_address. Instead a lookup will be done in the database, and
+  undef will be returned if there is no record for the IP.
+
+
 0.050005 2014-03-18
 
 - Fixed some big bugs in the iterate_search_tree method. Both of them caused
