@@ -5,8 +5,7 @@ use warnings;
 use namespace::autoclean;
 use autodie;
 
-use Data::Validate::IP 0.16
-    qw( is_ipv4 is_ipv6 );
+use Data::Validate::IP 0.16 qw( is_ipv4 is_ipv6 );
 use Math::Int128 qw( uint128 );
 use MaxMind::DB::Types qw( Str );
 
@@ -76,7 +75,7 @@ sub _iterate_search_tree {
     my @records = $self->_read_node($node_num);
     $node_callback->( $node_num, @records ) if $node_callback;
 
-    for my $idx ( 0..1 ) {
+    for my $idx ( 0 .. 1 ) {
         my $value = $records[$idx];
 
         # We ignore empty branches of the search tree

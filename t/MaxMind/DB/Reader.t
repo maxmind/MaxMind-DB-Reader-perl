@@ -133,7 +133,7 @@ for my $record_size ( 24, 28, 32 ) {
             MaxMind::DB::Reader->new(
                 file => file(
                     'maxmind-db/test-data/MaxMind-DB-test-mixed-24.mmdb')
-            )
+                )
         },
         undef,
         'Using a file object does not cause a type error'
