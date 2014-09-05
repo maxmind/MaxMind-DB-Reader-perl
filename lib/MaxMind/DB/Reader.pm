@@ -93,8 +93,7 @@ This method takes an IPv4 or IPv6 address as a string. This can be either a
 dotted quad (C<1.2.3.4>) or any valid IPv6 format (C<abcd::1234>,
 C<::1.2.3.4>, etc.).
 
-This method will die if the address is not a valid IP address or if the
-address is part of a private network.
+This method will die if the address is not a valid IP address.
 
 The method returns the data associated with the IP address. Depending on the
 contents of the database, this can be a scalar or a reference to an array or
