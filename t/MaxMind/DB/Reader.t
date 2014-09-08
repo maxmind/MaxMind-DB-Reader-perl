@@ -41,10 +41,10 @@ for my $record_size ( 24, 28, 32 ) {
 
     for my $private (
         qw( 10.44.51.212 10.0.0.3 172.16.99.44 fc00::24 fc00:1234:4bdf::1 )) {
-        like(
-            exception { $reader->record_for_address($private) },
-            qr/\QThe IP address you provided ($private) is not a public IP address\E/,
-            "exception when a private IP address ($private) is passed to record_for_address()"
+        is(
+            $reader->record_for_address($private),
+            undef,
+            "undef when a private IP address ($private) is passed to record_for_address()"
         );
     }
 }
@@ -133,7 +133,7 @@ for my $record_size ( 24, 28, 32 ) {
             MaxMind::DB::Reader->new(
                 file => file(
                     'maxmind-db/test-data/MaxMind-DB-test-mixed-24.mmdb')
-            )
+                )
         },
         undef,
         'Using a file object does not cause a type error'

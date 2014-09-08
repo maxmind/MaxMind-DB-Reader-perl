@@ -6,6 +6,7 @@ use namespace::autoclean;
 
 use Carp qw( confess );
 use MaxMind::DB::Types qw( Int );
+use Net::Works::Address 0.12;
 
 use Moo;
 use MooX::StrictConstructor;

@@ -23,7 +23,10 @@ my $reader
         $record->{utf8_string}, 'unicode! ☯ - ♫',
         'decoded utf8_string has expected value'
     );
-    delta_ok( $record->{double}, 42.123456, 'decoded double has expected value' );
+    delta_ok(
+        $record->{double}, 42.123456,
+        'decoded double has expected value'
+    );
     is(
         $record->{bytes}, pack( 'N', 42 ),
         'decoded bytes has expected value'
@@ -59,7 +62,8 @@ my $reader
     );
 
     ok( $record->{boolean}, 'decoded bool is true' );
-    delta_ok( $record->{float}, 1.1,
+    delta_ok(
+        $record->{float}, 1.1,
         'decoded float has expected value'
     );
 }
