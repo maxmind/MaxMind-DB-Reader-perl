@@ -2,7 +2,7 @@ NAME
     MaxMind::DB::Reader - Read MaxMind DB files and look up IP addresses
 
 VERSION
-    version 0.050005
+    version 0.060000
 
 SYNOPSIS
         my $reader = MaxMind::DB::Reader->new( file => 'path/to/database.mmdb' );
@@ -61,8 +61,7 @@ API
     either a dotted quad (1.2.3.4) or any valid IPv6 format ("abcd::1234",
     "::1.2.3.4", etc.).
 
-    This method will die if the address is not a valid IP address or if the
-    address is part of a private network.
+    This method will die if the address is not a valid IP address.
 
     The method returns the data associated with the IP address. Depending on
     the contents of the database, this can be a scalar or a reference to an

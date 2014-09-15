@@ -1,5 +1,7 @@
 {{$NEXT}}
 
+0.060000 2014-09-15
+
 - An exception is no longer thrown when a private IP address is passed to
   record_for_address. Instead a lookup will be done in the database, and
   undef will be returned if there is no record for the IP.
