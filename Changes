@@ -1,5 +1,10 @@
 {{$NEXT}}
 
+- Changed an error message to match the error string used by
+  libmaxminddb. This makes sharing tests between the pure Perl and XS
+  implementations much simpler.
+
+
 0.060000 2014-09-15
 
 - An exception is no longer thrown when a private IP address is passed to

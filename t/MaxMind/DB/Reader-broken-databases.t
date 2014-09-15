@@ -44,7 +44,7 @@ use MaxMind::DB::Reader;
 {    # test non-database
     like(
         exception { MaxMind::DB::Reader->new( file => 'Changes' ) },
-        qr/Error opening database file "Changes": The MaxMind DB file is in a format this library can't handle/,
+        qr/Error opening database file "Changes": The MaxMind DB file contains invalid metadata/,
         'expected exception with unknown file type'
     );
 }

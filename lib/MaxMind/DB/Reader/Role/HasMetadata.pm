@@ -60,9 +60,8 @@ sub _build_metadata {
         + rindex( $last_block, $MetadataStartMarker );
 
     confess 'Error opening database file "'
-        . $self->file . '": '
-        . q{The MaxMind DB file is in a format this library can't handle }
-        . q{(can't find metadata marker).}
+        . $self->file
+        . q{": The MaxMind DB file contains invalid metadata.}
         unless $start >= 0;
 
     # XXX - this is really gross but I couldn't come up with a better way to
