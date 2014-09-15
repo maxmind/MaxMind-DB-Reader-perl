@@ -1,5 +1,6 @@
 use strict;
 use warnings;
+use autodie;
 
 use Test::Fatal;
 use Test::More;
@@ -8,6 +9,7 @@ use lib 't/lib';
 use Test::MaxMind::DB::Reader;
 
 use MaxMind::DB::Reader;
+use Path::Class qw( tempdir );
 
 {    # Test broken doubles
     my $reader
@@ -42,9 +44,15 @@ use MaxMind::DB::Reader;
 }
 
 {    # test non-database
+    my $dir = tempdir( CLEANUP => 1 );
+    my $file = $dir->file('garbage');
+    open my $fh, '>', $file;
+    print {$fh} "garbage text\n";
+    close $fh;
+
     like(
-        exception { MaxMind::DB::Reader->new( file => 'Changes' ) },
-        qr/Error opening database file "Changes": The MaxMind DB file contains invalid metadata/,
+        exception { MaxMind::DB::Reader->new( file => $file ) },
+        qr/Error opening database file "\Q$file\E": The MaxMind DB file contains invalid metadata/,
         'expected exception with unknown file type'
     );
 }
