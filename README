@@ -2,7 +2,7 @@ NAME
     MaxMind::DB::Reader - Read MaxMind DB files and look up IP addresses
 
 VERSION
-    version 0.060000
+    version 0.060001
 
 SYNOPSIS
         my $reader = MaxMind::DB::Reader->new( file => 'path/to/database.mmdb' );
