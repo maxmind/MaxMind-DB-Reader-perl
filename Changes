@@ -1,5 +1,8 @@
 {{$NEXT}}
 
+- The mmdb-dump-database script now skips the IPv4 alias networks
+  (::ffff:0:0/96 and 2002::/16).
+
 1.000000 2014-09-22
 
 - First production release. No non-test changes.
