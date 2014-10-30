@@ -33,25 +33,49 @@ sub main {
     print "]\n";
 }
 
-my $JSON = JSON::PP->new()->utf8->allow_nonref()->pretty()->convert_blessed();
+{
+    my $alias_ffff
+        = Net::Works::Network->new_from_string( string => '::ffff:0:0/96' );
+    my $alias_2002
+        = Net::Works::Network->new_from_string( string => '2002::/16' );
 
-sub _dump_entry {
-    my $ip_version = shift;
-    my $ipnum      = shift;
-    my $depth      = shift;
-    my $entry_data = shift;
-
-    my $network = Net::Works::Network->new_from_integer(
-        integer     => $ipnum,
-        mask_length => $depth,
-        ip_version  => $ip_version,
+    my @ignore_ranges = (
+        [
+            $alias_ffff->first()->as_integer(),
+            $alias_ffff->last()->as_integer(),
+        ],
+        [
+            $alias_2002->first()->as_integer(),
+            $alias_2002->last()->as_integer(),
+        ],
     );
 
-    my $encoded = $JSON->encode( { $network->as_string => $entry_data } );
-    $encoded =~ s/^/  /mg;
-    $encoded =~ s/}$/},/s;
+    my $JSON = JSON->new()->utf8->allow_nonref()->pretty()->convert_blessed();
 
-    print $encoded;
+    sub _dump_entry {
+        my $ip_version = shift;
+        my $ipnum      = shift;
+        my $depth      = shift;
+        my $entry_data = shift;
+
+        if ( $ip_version == 6 ) {
+            for my $range (@ignore_ranges) {
+                return if $ipnum >= $range->[0] && $ipnum <= $range->[1];
+            }
+        }
+
+        my $network = Net::Works::Network->new_from_integer(
+            integer     => $ipnum,
+            mask_length => $depth,
+            ip_version  => $ip_version,
+        );
+
+        my $encoded = $JSON->encode( { $network->as_string => $entry_data } );
+        $encoded =~ s/^/  /mg;
+        $encoded =~ s/}$/},/s;
+
+        print $encoded;
+    }
 }
 
 main();
