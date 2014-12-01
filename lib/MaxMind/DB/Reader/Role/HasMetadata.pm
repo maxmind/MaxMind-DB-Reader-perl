@@ -22,7 +22,17 @@ has metadata => (
     init_arg => undef,
     lazy     => 1,
     builder  => '_build_metadata',
-    handles  => [ MaxMind::DB::Metadata->meta()->get_attribute_list() ],
+    handles  => [
+        'binary_format_major_version',
+        'binary_format_minor_version',
+        'build_epoch',
+        'database_type',
+        'description',
+        'ip_version',
+        'languages',
+        'node_count',
+        'record_size',
+    ],
 );
 
 has _data_section_end => (
