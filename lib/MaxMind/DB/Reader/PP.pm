@@ -156,6 +156,4 @@ sub _build_ipv4_start_node {
     return $node_num;
 }
 
-__PACKAGE__->meta()->make_immutable();
-
 1;

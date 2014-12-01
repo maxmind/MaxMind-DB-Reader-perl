@@ -285,6 +285,4 @@ sub _build_max_pointer_in_search_tree {
     return $self->_data_section_end() - 1;
 }
 
-__PACKAGE__->meta()->make_immutable();
-
 1;
