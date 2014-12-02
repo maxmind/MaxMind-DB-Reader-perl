@@ -391,6 +391,4 @@ sub _zero_pad_left {
     return ( "\x00" x ( $desired_length - length($content) ) ) . $content;
 }
 
-__PACKAGE__->meta()->make_immutable();
-
 1;
