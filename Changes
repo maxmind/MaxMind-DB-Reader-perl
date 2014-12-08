@@ -5,6 +5,7 @@
 - MaxMind::DB::Reader::Role::HasMetadata no longer unintentionally inflates a
   Moose metaclass.
 
+
 1.000000 2014-09-22
 
 - First production release. No non-test changes.
