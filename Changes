@@ -1,5 +1,7 @@
 {{$NEXT}}
 
+1.000001 2014-12-08
+
 - The mmdb-dump-database script now skips the IPv4 alias networks
   (::ffff:0:0/96 and 2002::/16).
 - MaxMind::DB::Reader::Role::HasMetadata no longer unintentionally inflates a
