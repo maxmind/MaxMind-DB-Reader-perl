@@ -10,18 +10,11 @@ perl:
   - "5.10"
 
 before_install:
-  - git clone git://github.com/haarg/perl-travis-helper
-  - source perl-travis-helper/init
+  - git submodule update --init --recursive
+  - git clone git://github.com/travis-perl/helpers ~/travis-perl-helpers
+  - source ~/travis-perl-helpers/init
   - build-perl
   - perl -V
-  - git submodule update --init --recursive
-  - cpanm --quiet --notest --skip-satisfied Dist::Zilla~5 Dist::Zilla::Plugin::PodWeaver Dist::Zilla::PluginBundle::ROKR Pod::Coverage::Moose Pod::Weaver::Section::Contributors Test::NoTabs Test::Spelling
-  - git clone --branch=master git://github.com/maxmind/MaxMind-DB-Common-perl.git common
-  - cd common
-  - "dzil authordeps --missing | xargs -n 5 -P 10 cpanm --quiet --notest"
-  - "dzil listdeps --missing  | grep -v MaxMind::DB | cpanm --quiet --notest"
-  - dzil install --install-command "cpanm --quiet --notest ."
-  - cd ..
   - build-dist
   - cd $BUILD_DIR
 
