@@ -77,7 +77,7 @@ sub verify {
     STDOUT->autoflush(1);
 
     for my $thing (qw( metadata search_tree data_section )) {
-        my $display_name = $thing =~ s/_/ /gr;
+        ( my $display_name = $thing ) =~ s/_/ /g;
 
         $self->_output("Verifying $display_name ...");
 
