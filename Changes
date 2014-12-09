@@ -1,5 +1,9 @@
 {{$NEXT}}
 
+- The MaxMind::DB::Verifier module accidentally included a 5.14-ism, which
+  prevented this module from installing on earlier Perls.
+
+
 1.000001 2014-12-08
 
 - The mmdb-dump-database script now skips the IPv4 alias networks
