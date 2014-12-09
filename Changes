@@ -1,5 +1,7 @@
 {{$NEXT}}
 
+1.000002 2014-12-09
+
 - The MaxMind::DB::Verifier module accidentally included a 5.14-ism, which
   prevented this module from installing on earlier Perls.
 

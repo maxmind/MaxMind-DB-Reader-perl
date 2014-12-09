@@ -26,7 +26,7 @@ requires "autodie" => "0";
 requires "bytes" => "0";
 requires "constant" => "0";
 requires "namespace::autoclean" => "0";
-requires "perl" => "5.013002";
+requires "perl" => "5.010000";
 requires "strict" => "0";
 requires "warnings" => "0";
 
@@ -45,7 +45,7 @@ on 'test' => sub {
   requires "Test::More" => "0.88";
   requires "Test::Number::Delta" => "0";
   requires "lib" => "0";
-  requires "perl" => "5.013002";
+  requires "perl" => "5.010000";
   requires "utf8" => "0";
 };
 
@@ -55,7 +55,7 @@ on 'test' => sub {
 
 on 'configure' => sub {
   requires "ExtUtils::MakeMaker" => "0";
-  requires "perl" => "5.013002";
+  requires "perl" => "5.010000";
 };
 
 on 'develop' => sub {
