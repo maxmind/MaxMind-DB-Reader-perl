@@ -1,5 +1,7 @@
 {{$NEXT}}
 
+1.000003 2014-12-17
+
 - The previous release somehow included junk from an even older release in a
   MaxMind-DB-Reader-1.00001 subdirectory. Reported by Daisuke Maki. GH #14.
 
