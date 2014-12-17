@@ -1,5 +1,9 @@
 {{$NEXT}}
 
+- The previous release somehow included junk from an even older release in a
+  MaxMind-DB-Reader-1.00001 subdirectory. Reported by Daisuke Maki. GH #14.
+
+
 1.000002 2014-12-09
 
 - The MaxMind::DB::Verifier module accidentally included a 5.14-ism, which
