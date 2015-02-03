@@ -1,5 +1,9 @@
 {{$NEXT}}
 
+- Fixed a bug in the mmdb-dump-database script. It tried to call methods on
+  the JSON module when it meant to use JSON::PP.
+
+
 1.000003 2014-12-17
 
 - The previous release somehow included junk from an even older release in a
