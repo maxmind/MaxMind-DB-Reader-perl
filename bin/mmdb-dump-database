@@ -50,7 +50,7 @@ sub main {
         ],
     );
 
-    my $JSON = JSON->new()->utf8->allow_nonref()->pretty()->convert_blessed();
+    my $JSON = JSON::PP->new()->utf8->allow_nonref()->pretty()->convert_blessed();
 
     sub _dump_entry {
         my $ip_version = shift;
