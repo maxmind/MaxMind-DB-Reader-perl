@@ -8,7 +8,7 @@ use autodie;
 our $VERSION = '1.000004';
 
 use Data::Validate::IP 0.16 qw( is_ipv4 is_ipv6 );
-use Math::Int128 qw( uint128 );
+use Math::BigInt ();
 use MaxMind::DB::Types qw( Str );
 
 use Moo::Role;
@@ -49,7 +49,7 @@ sub iterate_search_tree {
     my $node_callback = shift;
 
     my $node_num  = 0;
-    my $ipnum     = $self->ip_version() == 4 ? 0 : uint128(0);
+    my $ipnum     = $self->ip_version() == 4 ? 0 : Math::BigInt->bzero();
     my $depth     = 1;
     my $max_depth = $self->ip_version() == 4 ? 32 : 128;
 
@@ -85,7 +85,7 @@ sub _iterate_search_tree {
         # We ignore empty branches of the search tree
         next if $value == $self->node_count();
 
-        my $one = $self->ip_version() == 4 ? 1 : uint128(1);
+        my $one = $self->ip_version() == 4 ? 1 : Math::BigInt->bone();
         $ipnum = $ipnum | ( $one << ( $max_depth - $depth ) ) if $idx;
 
         if ( $value <= $self->node_count() ) {
