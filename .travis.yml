@@ -8,6 +8,12 @@ perl:
   - "5.14"
   - "5.12"
   - "5.10"
+  - "5.8"
+
+env:
+  global:
+    - RELEASE_TESTING=1
+    - AUTHOR_TESTING=1
 
 before_install:
   - git submodule update --init --recursive
@@ -19,10 +25,12 @@ before_install:
   - cd $BUILD_DIR
 
 install:
-  - cpan-install --deps
+  - cpan-install ExtUtils::MakeMaker~6.68 --deps
 
 script:
-  - prove -l -j$((SYSTEM_CORES + 1)) $(test-dirs)
+  - perl Makefile.PL
+  - make
+  - prove -br -j$(test-jobs) $(test-files)
 
 notifications:
   email:
@@ -30,4 +38,3 @@ notifications:
       - dev@maxmind.com
     on_success: change
     on_failure: always
-
