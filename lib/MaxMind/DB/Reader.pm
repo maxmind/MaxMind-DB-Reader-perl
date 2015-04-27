@@ -14,6 +14,7 @@ use Role::Tiny 1.003002 ();
 my $Implementation;
 
 {
+    ## no critic (Subroutines::ProhibitCallsToUnexportedSubs)
     my $loader = Module::Implementation::build_loader_sub(
         implementations => [ 'XS', 'PP' ],
     );

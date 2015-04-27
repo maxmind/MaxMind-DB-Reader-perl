@@ -72,7 +72,9 @@ sub _iterate_search_tree {
     my $depth         = shift;
     my $max_depth     = shift;
 
+    ## no critic (TestingAndDebugging::ProhibitNoWarnings)
     no warnings 'recursion';
+    ## use critic
 
     my @records = $self->_read_node($node_num);
     $node_callback->( $node_num, @records ) if $node_callback;

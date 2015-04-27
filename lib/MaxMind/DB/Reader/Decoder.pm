@@ -92,7 +92,7 @@ sub decode {
         my $type_num = unpack( C => $next_byte ) + 7;
         confess
             "Something went horribly wrong in the decoder. An extended type resolved to a type number < 8 ($type_num)"
-            unless $type_num >= 8;
+            if $type_num < 8;
 
         $type = $TypeNumToName{$type_num};
         $offset++;
@@ -170,6 +170,7 @@ sub _decode_pointer {
     return ( $pointer, $offset + $pointer_size );
 }
 
+## no critic (Subroutines::ProhibitUnusedPrivateSubroutines)
 sub _decode_utf8_string {
     my $self   = shift;
     my $buffer = shift;
@@ -177,6 +178,7 @@ sub _decode_utf8_string {
 
     return q{} if $size == 0;
 
+    ## no critic (Subroutines::ProhibitCallsToUnexportedSubs)
     return Encode::decode( 'utf-8', $buffer, Encode::FB_CROAK );
 }
 
@@ -347,6 +349,7 @@ sub _decode_boolean {
 
     return wantarray ? ( $size, $offset ) : $size;
 }
+## use critic
 
 sub _verify_size {
     my $self     = shift;

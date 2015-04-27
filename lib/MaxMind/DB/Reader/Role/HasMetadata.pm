@@ -74,7 +74,7 @@ sub _build_metadata {
     confess 'Error opening database file "'
         . $self->file
         . q{": The MaxMind DB file contains invalid metadata.}
-        unless $start >= 0;
+        if $start < 0;
 
     # XXX - this is really gross but I couldn't come up with a better way to
     # factor this out that doesn't involve either looking for the metadata
@@ -82,7 +82,9 @@ sub _build_metadata {
     # memory so we can calculate this later
     $self->_set_data_section_end( $size - ( $last_bytes - $start ) );
 
+    ## no critic (Subroutines::ProhibitCallsToUnexportedSubs)
     $start += bytes::length($MetadataStartMarker);
+    ## use critic
 
     my $raw = MaxMind::DB::Reader::Decoder->new(
         data_source  => $self->data_source,

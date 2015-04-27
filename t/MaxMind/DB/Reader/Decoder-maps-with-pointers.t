@@ -10,7 +10,8 @@ use Test::MaxMind::DB::Reader;
 
 use MaxMind::DB::Reader::Decoder;
 
-open my $fh, '<', 'maxmind-db/test-data/maps-with-pointers.raw';
+open my $fh, '<', 'maxmind-db/test-data/maps-with-pointers.raw'
+    or die $!;
 
 my $decoder = MaxMind::DB::Reader::Decoder->new( data_source => $fh );
 
