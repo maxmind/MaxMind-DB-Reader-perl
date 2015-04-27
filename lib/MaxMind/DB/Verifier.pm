@@ -5,6 +5,8 @@ use warnings;
 use namespace::autoclean;
 use autodie;
 
+our $VERSION = '1.000004';
+
 use Getopt::Long;
 use IO::File;
 use MaxMind::DB::Common qw( DATA_SECTION_SEPARATOR_SIZE );

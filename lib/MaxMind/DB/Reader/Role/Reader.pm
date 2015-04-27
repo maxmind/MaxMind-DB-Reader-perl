@@ -5,6 +5,8 @@ use warnings;
 use namespace::autoclean;
 use autodie;
 
+our $VERSION = '1.000004';
+
 use Data::Validate::IP 0.16 qw( is_ipv4 is_ipv6 );
 use Math::Int128 qw( uint128 );
 use MaxMind::DB::Types qw( Str );

@@ -3,6 +3,8 @@ package MaxMind::DB::Reader;
 use strict;
 use warnings;
 
+our $VERSION = '1.000004';
+
 use 5.010000;
 
 use Module::Implementation;

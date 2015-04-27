@@ -6,6 +6,8 @@ use namespace::autoclean;
 use autodie;
 
 require bytes;
+
+our $VERSION = '1.000004';
 use Carp qw( confess );
 use List::AllUtils qw( min );
 use MaxMind::DB::Reader::Decoder;

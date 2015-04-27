@@ -4,6 +4,8 @@ use strict;
 use warnings;
 use namespace::autoclean;
 
+our $VERSION = '1.000004';
+
 use Carp qw( confess );
 use MaxMind::DB::Types qw( Int );
 use Net::Works::Address 0.12;
