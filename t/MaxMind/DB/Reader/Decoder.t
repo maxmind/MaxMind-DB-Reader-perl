@@ -1,6 +1,7 @@
 # PP only
 use strict;
 use warnings;
+use autodie;
 
 use Test::Fatal;
 use Test::More;

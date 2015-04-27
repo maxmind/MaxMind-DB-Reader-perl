@@ -47,7 +47,8 @@ use Path::Class qw( tempdir );
     my $dir = tempdir( CLEANUP => 1 );
     my $file = $dir->file('garbage');
     open my $fh, '>', $file;
-    print {$fh} "garbage text\n";
+    print {$fh} "garbage text\n"
+        or die $!;
     close $fh;
 
     like(

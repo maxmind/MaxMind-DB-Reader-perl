@@ -2,6 +2,7 @@ package Test::MaxMind::DB::Reader::Decoder;
 
 use strict;
 use warnings;
+use autodie;
 
 use List::AllUtils qw( natatime );
 use MaxMind::DB::Reader::Decoder;

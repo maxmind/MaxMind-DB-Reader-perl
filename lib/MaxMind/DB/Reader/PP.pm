@@ -3,6 +3,9 @@ package MaxMind::DB::Reader::PP;
 use strict;
 use warnings;
 use namespace::autoclean;
+use autodie;
+
+our $VERSION = '1.000004';
 
 use Carp qw( confess );
 use MaxMind::DB::Types qw( Int );
@@ -46,21 +49,25 @@ sub BUILD {
 sub _build_data_source {
     my $self = shift;
 
-    open my $fh, '<:raw', $self->file();
+    my $file = $self->file();
+    open my $fh, '<:raw', $file;
 
     return $fh;
 }
 
+## no critic (Subroutines::ProhibitUnusedPrivateSubroutines)
 sub _data_for_address {
     my $self = shift;
     my $addr = shift;
 
     my $pointer = $self->_find_address_in_tree($addr);
 
+    ## no critic (Subroutines::ProhibitExplicitReturnUndef)
     return undef unless $pointer;
 
     return $self->_get_entry_data($pointer);
 }
+## use critic
 
 sub _find_address_in_tree {
     my $self = shift;
@@ -90,9 +97,9 @@ sub _find_address_in_tree {
 
         my $bit = 1 & ( $integer >> $bit_num );
 
-        my ( $left, $right ) = $self->_read_node($node);
+        my ( $left_record, $right_record ) = $self->_read_node($node);
 
-        $node = $bit ? $right : $left;
+        $node = $bit ? $right_record : $left_record;
 
         if (DEBUG) {
             $self->_debug_string( 'Bit #',     $address->bits() - $bit_num );

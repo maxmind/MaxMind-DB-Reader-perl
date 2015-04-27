@@ -5,6 +5,8 @@ use warnings;
 use namespace::autoclean;
 use autodie;
 
+our $VERSION = '1.000004';
+
 use Getopt::Long;
 use IO::File;
 use MaxMind::DB::Common qw( DATA_SECTION_SEPARATOR_SIZE );
@@ -74,6 +76,7 @@ sub run {
 sub verify {
     my $self = shift;
 
+    ## no critic (Modules::RequireExplicitInclusion)
     STDOUT->autoflush(1);
 
     for my $thing (qw( metadata search_tree data_section )) {
@@ -96,17 +99,19 @@ sub verify {
     return 1;
 }
 
+## no critic (Subroutines::ProhibitUnusedPrivateSubroutines)
 sub _verify_metadata {
     my $self = shift;
 
     my $node_count = $self->node_count();
-    unless ( $node_count > 0 ) {
+    unless ($node_count) {
         $self->_verification_error(
             "The metadata specified the node count was $node_count - we expect a positive number"
         );
     }
 
     my $record_size = $self->record_size();
+    ## no critic (ControlStructures::ProhibitNegativeExpressionsInUnlessAndUntilConditions)
     unless ( $record_size >= 24
         && $record_size <= 64
         && $record_size % 4 == 0 ) {
@@ -247,10 +252,11 @@ sub _verify_data_section {
     if ( my $final_count = keys %{$pointers} ) {
         $self->_verification_error(
             "Found $final_count pointers (of $pointer_count) in the search tree"
-                . " that we didn't see while stepping through the data section"
+                . q{ that we didn't see while stepping through the data section}
         );
     }
 }
+## use critic
 
 sub _verification_error {
     my $self  = shift;
@@ -266,7 +272,9 @@ sub _output {
 
     return if $self->quiet();
 
-    print "$_[0]\n";
+    print "$_[0]\n" or die $!;
+
+    return;
 }
 
 sub _build_data_source {

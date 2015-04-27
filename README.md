@@ -4,7 +4,7 @@ MaxMind::DB::Reader - Read MaxMind DB files and look up IP addresses
 
 # VERSION
 
-version 1.000003
+version 1.000004
 
 # SYNOPSIS
 
@@ -128,7 +128,8 @@ Please report all issues with this code using the GitHub issue tracker at
 
 # COPYRIGHT AND LICENSE
 
-This software is copyright (c) 2014 by MaxMind, Inc..
+This software is Copyright (c) 2015 by MaxMind, Inc..
 
-This is free software; you can redistribute it and/or modify it under
-the same terms as the Perl 5 programming language system itself.
+This is free software, licensed under:
+
+    The Artistic License 2.0 (GPL Compatible)

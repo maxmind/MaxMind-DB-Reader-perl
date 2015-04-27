@@ -5,6 +5,8 @@ use warnings;
 use namespace::autoclean;
 use autodie;
 
+our $VERSION = '1.000004';
+
 use MaxMind::DB::Types qw( Int );
 
 use Moo::Role;
@@ -49,11 +51,16 @@ sub _split_node_into_records {
         return unpack( NN => pack( 'xa*xa*' => unpack( a3a3 => $node ) ) );
     }
     elsif ( $self->record_size() == 28 ) {
-        my ( $left, $middle, $right ) = unpack( a3Ca3 => $node );
+        my ( $left_bytes, $middle_byte, $right_bytes )
+            = unpack( a3Ca3 => $node );
 
         return (
-            unpack( N => pack( 'Ca*', ( $middle & 0xf0 ) >> 4, $left ) ),
-            unpack( N => pack( 'Ca*', ( $middle & 0x0f ),      $right ) )
+            unpack(
+                N => pack( 'Ca*', ( $middle_byte & 0xf0 ) >> 4, $left_bytes )
+            ),
+            unpack(
+                N => pack( 'Ca*', ( $middle_byte & 0x0f ), $right_bytes )
+            )
         );
     }
     elsif ( $self->record_size() == 32 ) {

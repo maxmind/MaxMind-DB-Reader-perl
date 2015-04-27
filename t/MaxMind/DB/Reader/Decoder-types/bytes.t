@@ -1,9 +1,11 @@
 # PP only
 use strict;
 use warnings;
+use autodie;
 
 use lib 't/lib';
 
+use MaxMind::DB::Reader::Decoder;
 use Test::MaxMind::DB::Common::Data qw( test_cases_for );
 use Test::MaxMind::DB::Reader::Decoder qw( test_decoding_of_type );
 use Test::More;
@@ -12,15 +14,6 @@ use lib 't/lib';
 use Test::MaxMind::DB::Reader;
 
 use Encode ();
-
-{
-    my $tb = Test::Builder->new();
-
-    binmode $_, ':encoding(UTF-8)'
-        for $tb->output(),
-        $tb->failure_output(),
-        $tb->todo_output();
-}
 
 test_decoding_of_type( bytes => test_cases_for('bytes') );
 

@@ -3,6 +3,8 @@ package MaxMind::DB::Reader;
 use strict;
 use warnings;
 
+our $VERSION = '1.000004';
+
 use 5.010000;
 
 use Module::Implementation;
@@ -12,6 +14,7 @@ use Role::Tiny 1.003002 ();
 my $Implementation;
 
 {
+    ## no critic (Subroutines::ProhibitCallsToUnexportedSubs)
     my $loader = Module::Implementation::build_loader_sub(
         implementations => [ 'XS', 'PP' ],
     );
