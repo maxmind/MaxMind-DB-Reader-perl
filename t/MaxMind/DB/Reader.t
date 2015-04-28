@@ -4,7 +4,6 @@ use autodie;
 
 use lib 't/lib';
 use MaxMind::DB::Reader;
-use Net::Works::Network;
 use Path::Class qw( file );
 use Test::Fatal;
 use Test::MaxMind::DB::Common::Util qw( standard_test_metadata );
@@ -49,7 +48,11 @@ for my $record_size ( 24, 28, 32 ) {
     }
 }
 
+SKIP:
 {
+    skip 'This test requires Net::Works::Network', 6
+        unless eval { require Net::Works::Network };
+
     my $reader = MaxMind::DB::Reader->new(
         file => 'maxmind-db/test-data/MaxMind-DB-test-mixed-24.mmdb' );
 
@@ -165,10 +168,16 @@ sub _test_ipv4_lookups {
         $filename,
     );
 
-    my @subnets
-        = Net::Works::Network->range_as_subnets( '1.1.1.1', '1.1.1.32' );
+    my @subnets = qw(
+        1.1.1.1
+        1.1.1.2
+        1.1.1.4
+        1.1.1.8
+        1.1.1.16
+        1.1.1.32
+    );
 
-    for my $ip ( map { $_->first()->as_string() } @subnets ) {
+    for my $ip (@subnets) {
         my $expect = ( $ip_version == 6 ? '::' : q{} ) . $ip;
 
         is_deeply(
@@ -222,9 +231,12 @@ sub _test_ipv6_lookups {
     my $reader = MaxMind::DB::Reader->new(
         file => "maxmind-db/test-data/$filename" );
 
-    my @subnets = Net::Works::Network->range_as_subnets(
-        '::1:ffff:ffff',
-        '::2:0000:0059'
+    my @subnets = qw(
+        ::1:ffff:ffff
+        ::2:0:0
+        ::2:0:40
+        ::2:0:50
+        ::2:0:58
     );
 
     _test_metadata(
@@ -236,7 +248,7 @@ sub _test_ipv6_lookups {
         $filename,
     );
 
-    for my $ip ( map { $_->first()->as_string() } @subnets ) {
+    for my $ip (@subnets) {
         is_deeply(
             $reader->record_for_address($ip),
             { ip => $ip },
