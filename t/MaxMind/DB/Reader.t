@@ -50,8 +50,11 @@ for my $record_size ( 24, 28, 32 ) {
 
 SKIP:
 {
-    skip 'This test requires Net::Works::Network', 6
-        unless eval { require Net::Works::Network };
+    skip 'This test requires Net::Works::Network 0.21+', 6
+        unless eval {
+        require Net::Works::Network;
+        Net::Works::Network->VERSION(0.21);
+        };
 
     my $reader = MaxMind::DB::Reader->new(
         file => 'maxmind-db/test-data/MaxMind-DB-test-mixed-24.mmdb' );
