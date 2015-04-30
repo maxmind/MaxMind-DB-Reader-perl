@@ -1,5 +1,7 @@
 {{$NEXT}}
 
+1.000004 2015-04-30
+
 - `MaxMind::DB::Reader` now has no XS dependencies. Previously `Net::Works`
   was used for validation and `Math::Int128` was used to return larger
   integers. Integers larger than maximum unsigned integer supported by your
