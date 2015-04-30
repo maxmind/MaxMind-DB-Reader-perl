@@ -13,8 +13,8 @@ use MaxMind::DB::Reader;
 use Net::Works::Network;
 
 no warnings 'once';
-*Math::UInt128::TO_JSON = sub { return $_[0] . q{} }
-    unless Math::UInt128->can('TO_JSON');
+*Math::BigInt::TO_JSON = sub { return $_[0] . q{} }
+    unless Math::BigInt->can('TO_JSON');
 
 sub main {
     my $file;

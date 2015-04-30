@@ -9,7 +9,7 @@ our $VERSION = '1.000004';
 
 use Carp qw( confess );
 use MaxMind::DB::Types qw( Int );
-use Net::Works::Address 0.12;
+use Socket qw( inet_pton AF_INET AF_INET6 );
 
 use Moo;
 use MooX::StrictConstructor;
@@ -73,41 +73,34 @@ sub _find_address_in_tree {
     my $self = shift;
     my $addr = shift;
 
-    my $address = Net::Works::Address->new_from_string( string => $addr );
-
-    my $integer = $address->as_integer();
-
-    if (DEBUG) {
-        $self->_debug_newline();
-        $self->_debug_string( 'IP address',      $address );
-        $self->_debug_string( 'IP address bits', $address->as_bit_string() );
-        $self->_debug_newline();
-    }
+    my $is_ipv6_addr  = $addr =~ /::/;
+    my @address_bytes = unpack(
+        'C*',
+        inet_pton( $is_ipv6_addr ? AF_INET6 : AF_INET, $addr )
+    );
 
     # The first node of the tree is always node 0, at the beginning of the
     # value
     my $node = $self->ip_version == 6
-        && $address->version == 4 ? $self->_ipv4_start_node() : 0;
+        && !$is_ipv6_addr ? $self->_ipv4_start_node() : 0;
 
-    for my $bit_num ( reverse( 0 ... $address->bits - 1 ) ) {
+    my $bit_length = @address_bytes * 8;
+    for my $bit_num ( 0 .. $bit_length ) {
         last if $node >= $self->node_count();
 
-        $self->_debug_message('Record is a node number')
-            if DEBUG;
-
-        my $bit = 1 & ( $integer >> $bit_num );
+        my $temp_bit = 0xFF & $address_bytes[ $bit_num >> 3 ];
+        my $bit = 1 & ( $temp_bit >> 7 - ( $bit_num % 8 ) );
 
         my ( $left_record, $right_record ) = $self->_read_node($node);
 
         $node = $bit ? $right_record : $left_record;
 
         if (DEBUG) {
-            $self->_debug_string( 'Bit #',     $address->bits() - $bit_num );
-            $self->_debug_string( 'Bit value', $bit );
-            $self->_debug_string( 'Record',    $bit ? 'right' : 'left' );
+            $self->_debug_string( 'Bit #',        $bit_length - $bit_num );
+            $self->_debug_string( 'Bit value',    $bit );
+            $self->_debug_string( 'Record',       $bit ? 'right' : 'left' );
             $self->_debug_string( 'Record value', $node );
         }
-
     }
 
     if ( $node == $self->node_count() ) {

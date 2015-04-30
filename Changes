@@ -1,7 +1,15 @@
 {{$NEXT}}
 
+- `MaxMind::DB::Reader` now has no XS dependencies. Previously `Net::Works`
+  was used for validation and `Math::Int128` was used to return larger
+  integers. Integers larger than maximum unsigned integer supported by your
+  `perl` will now be returned as `Math::BigInt` objects. If you are dealing
+  with many lookups of a record with such values and cannot install
+  `MaxMind::DB::Reader::XS`, you may wish to install `Math::BigInt::GMP`.
 - Fixed a bug in the mmdb-dump-database script. It tried to call methods on
   the JSON module when it meant to use JSON::PP.
+- `mmdb-dump-database` was moved from `bin` to `eg`.
+
 
 
 1.000003 2014-12-17

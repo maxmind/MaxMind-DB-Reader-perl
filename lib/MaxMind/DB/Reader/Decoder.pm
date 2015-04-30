@@ -10,10 +10,10 @@ our $VERSION = '1.000004';
 use Carp qw( confess );
 use Data::IEEE754 qw( unpack_double_be unpack_float_be );
 use Encode ();
-use MaxMind::DB::Common 0.031000 qw( %TypeNumToName );
+use Math::BigInt qw();
+use MaxMind::DB::Common 0.040000 qw( %TypeNumToName );
 use MaxMind::DB::Reader::Data::Container;
 use MaxMind::DB::Reader::Data::EndMarker;
-use Math::Int128 qw( uint128 );
 use MaxMind::DB::Types qw( Int );
 
 use Moo;
@@ -279,30 +279,27 @@ sub _decode_uint128 {
     return $self->_decode_uint( $buffer, $size, 16 );
 }
 
-sub _decode_uint {
-    my $self   = shift;
-    my $buffer = shift;
-    my $size   = shift;
-    my $bytes  = shift;
+{
+    my $max_int_bytes = log( ~0 ) / ( 8 * log(2) );
 
-    if (DEBUG) {
-        $self->_debug_string( 'UINT size',  $size );
-        $self->_debug_string( 'UINT bytes', $bytes );
-        $self->_debug_binary( 'Buffer', $buffer );
-    }
+    sub _decode_uint {
+        my $self   = shift;
+        my $buffer = shift;
+        my $size   = shift;
+        my $bytes  = shift;
 
-    if ( $bytes == 4 ) {
-        return 0 if $size == 0;
-        return unpack( 'N' => $self->_zero_pad_left( $buffer, $bytes ) );
-    }
-    else {
-        my $int = uint128(0);
+        if (DEBUG) {
+            $self->_debug_string( 'UINT size',  $size );
+            $self->_debug_string( 'UINT bytes', $bytes );
+            $self->_debug_binary( 'Buffer', $buffer );
+        }
 
+        my $int = $bytes <= $max_int_bytes ? 0 : Math::BigInt->bzero();
         return $int if $size == 0;
 
-        my @unpacked = unpack( 'NNNN', $self->_zero_pad_left( $buffer, 16 ) );
+        my @unpacked = unpack( 'C*', $buffer );
         for my $piece (@unpacked) {
-            $int = ( $int << 32 ) | $piece;
+            $int = ( $int << 8 ) | $piece;
         }
 
         return $int;
