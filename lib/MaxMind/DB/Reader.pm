@@ -3,7 +3,7 @@ package MaxMind::DB::Reader;
 use strict;
 use warnings;
 
-our $VERSION = '1.000004';
+our $VERSION = '1.000005';
 
 use 5.010000;
 
