@@ -9,7 +9,7 @@ our $VERSION = '1.000005';
 
 use Carp qw( confess );
 use MaxMind::DB::Types qw( Int );
-use Socket qw( inet_pton AF_INET AF_INET6 );
+use Socket 2.019 qw( inet_pton AF_INET AF_INET6 );
 
 use Moo;
 use MooX::StrictConstructor;

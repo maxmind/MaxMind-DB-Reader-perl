@@ -1,5 +1,7 @@
 {{$NEXT}}
 
+- Require newer version of Socket for inet_pton on perl 5.10
+
 1.000004 2015-04-30
 
 - `MaxMind::DB::Reader` now has no XS dependencies. Previously `Net::Works`
