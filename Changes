@@ -1,5 +1,7 @@
 {{$NEXT}}
 
+1.000005 2015-05-22
+
 - Require newer version of Socket for inet_pton on perl 5.10
 
 1.000004 2015-04-30

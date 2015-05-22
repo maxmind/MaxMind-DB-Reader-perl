@@ -4,7 +4,7 @@ MaxMind::DB::Reader - Read MaxMind DB files and look up IP addresses
 
 # VERSION
 
-version 1.000004
+version 1.000005
 
 # SYNOPSIS
 
@@ -123,6 +123,7 @@ Please report all issues with this code using the GitHub issue tracker at
 # CONTRIBUTORS
 
 - Greg Oschwald <goschwald@maxmind.com>
+- Mateu X Hunter <hunter@missoula.org>
 - Ran Eilam <reilam@maxmind.com>
 - William Stevenson <skyblue@skybluecircles.com>
 
