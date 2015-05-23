@@ -3,7 +3,7 @@ package MaxMind::DB::Reader::Data::Container;
 use strict;
 use warnings;
 
-our $VERSION = '1.000006';
+our $VERSION = '1.000007';
 
 sub new {
     my $str = 'container';
