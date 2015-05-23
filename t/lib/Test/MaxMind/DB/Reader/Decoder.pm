@@ -6,7 +6,7 @@ use autodie;
 
 use List::AllUtils qw( natatime );
 use MaxMind::DB::Reader::Decoder;
-use Scalar::Util qw( blessed );
+use Scalar::Util 1.42 qw( blessed );
 use Test::More;
 use Test::Number::Delta;
 
