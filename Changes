@@ -1,5 +1,7 @@
 {{$NEXT}}
 
+1.000006 2015-05-22
+
 - Require Scalar::Util 1.42 for tests,  GH #16
 
 1.000005 2015-05-22
