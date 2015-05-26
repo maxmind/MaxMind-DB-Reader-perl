@@ -1,5 +1,8 @@
 {{$NEXT}}
 
+- Require version 1.87 of Socket (same as perl 5.12) to minimize XS dependency.
+  On Windows, Socket version 2.019 will be installed (for inet_pton emulation).
+
 1.000006 2015-05-22
 
 - Require Scalar::Util 1.42 for tests,  GH #16
