@@ -5,7 +5,7 @@ use warnings;
 use namespace::autoclean;
 use autodie;
 
-our $VERSION = '1.000007';
+our $VERSION = '1.000008';
 
 use Getopt::Long;
 use IO::File;
