@@ -1,5 +1,7 @@
 {{$NEXT}}
 
+1.000007 2015-05-27
+
 - Require version 1.87 of Socket (same as perl 5.12) to minimize XS dependency.
   On Windows, Socket version 2.019 will be installed (for inet_pton emulation).
 
