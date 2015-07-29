@@ -1,17 +1,24 @@
 {{$NEXT}}
 
+- Require Path::Class 0.27 for tests. This is the first version to include
+  `tempdir`.
+
+
 1.000007 2015-05-27
 
 - Require version 1.87 of Socket (same as perl 5.12) to minimize XS dependency.
   On Windows, Socket version 2.019 will be installed (for inet_pton emulation).
 
+
 1.000006 2015-05-22
 
 - Require Scalar::Util 1.42 for tests,  GH #16
 
+
 1.000005 2015-05-22
 
 - Require newer version of Socket for inet_pton on perl 5.10
+
 
 1.000004 2015-04-30
 
@@ -21,10 +28,11 @@
   `perl` will now be returned as `Math::BigInt` objects. If you are dealing
   with many lookups of a record with such values and cannot install
   `MaxMind::DB::Reader::XS`, you may wish to install `Math::BigInt::GMP`.
+
 - Fixed a bug in the mmdb-dump-database script. It tried to call methods on
   the JSON module when it meant to use JSON::PP.
-- `mmdb-dump-database` was moved from `bin` to `eg`.
 
+- `mmdb-dump-database` was moved from `bin` to `eg`.
 
 
 1.000003 2014-12-17
@@ -43,6 +51,7 @@
 
 - The mmdb-dump-database script now skips the IPv4 alias networks
   (::ffff:0:0/96 and 2002::/16).
+
 - MaxMind::DB::Reader::Role::HasMetadata no longer unintentionally inflates a
   Moose metaclass.
 

@@ -9,7 +9,7 @@ use lib 't/lib';
 use Test::MaxMind::DB::Reader;
 
 use MaxMind::DB::Reader;
-use Path::Class qw( tempdir );
+use Path::Class 0.27 qw( tempdir );
 
 {    # Test broken doubles
     my $reader
