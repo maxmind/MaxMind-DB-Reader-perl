@@ -55,7 +55,7 @@ my $reader
         {
             mapX => {
                 utf8_stringX => 'hello',
-                arrayX       => [ 7, 8, 9 ],
+                arrayX => [ 7, 8, 9 ],
             },
         },
         'decoded map has expected value'

@@ -19,8 +19,7 @@ use Encode ();
     ## no critic (Modules::RequireExplicitInclusion)
     my $tb = Test::Builder->new();
 
-    binmode $_, ':encoding(UTF-8)'
-        for $tb->output(),
+    binmode $_, ':encoding(UTF-8)' for $tb->output(),
         $tb->failure_output(),
         $tb->todo_output();
 }
