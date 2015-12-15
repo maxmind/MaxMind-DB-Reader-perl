@@ -1,5 +1,7 @@
 {{$NEXT}}
 
+1.000008 2015-12-15
+
 - Require Path::Class 0.27 for tests. This is the first version to include
   `tempdir`.
 
