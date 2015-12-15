@@ -4,6 +4,10 @@ use strict;
 use warnings;
 use utf8;
 
+use Test::Requires {
+    'Math::Int128' => 0,
+};
+
 use lib 't/lib';
 use Math::Int128 qw( uint128 );
 use MaxMind::DB::Reader;
