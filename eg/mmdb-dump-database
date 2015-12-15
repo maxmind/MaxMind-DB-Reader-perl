@@ -20,7 +20,7 @@ sub main {
     );
 
     my $reader = MaxMind::DB::Reader->new( file => $file );
-    my $ip_version = $reader->ip_version();
+    my $ip_version = $reader->ip_version;
 
     # For large databases this iteration could take a long time so it's good
     # to send output as it's available.
@@ -38,16 +38,17 @@ sub main {
 
     my @ignore_ranges = (
         [
-            $alias_ffff->first()->as_integer(),
-            $alias_ffff->last()->as_integer(),
+            $alias_ffff->first->as_integer,
+            $alias_ffff->last->as_integer,
         ],
         [
-            $alias_2002->first()->as_integer(),
-            $alias_2002->last()->as_integer(),
+            $alias_2002->first->as_integer,
+            $alias_2002->last->as_integer,
         ],
     );
 
-    my $JSON = Cpanel::JSON::XS->new()->utf8->allow_nonref()->pretty()->convert_blessed();
+    my $JSON
+        = Cpanel::JSON::XS->new->utf8->allow_nonref->pretty->convert_blessed;
 
     sub _dump_entry {
         my $ip_version = shift;
