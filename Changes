@@ -6,6 +6,10 @@
 - Really remove dependency on Math::Int128. There was still some test code
   using it that caused it to be required. Reported by Victor Efimov. GH #23.
 
+- Removed MaxMind::DB::Verifier and the mmdb-verify-database script. This was
+  extremely slow on large databases, and probably fairly buggy. Use
+  https://github.com/maxmind/mmdbverify instead.
+
 
 1.000007 2015-05-27
 
