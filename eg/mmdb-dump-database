@@ -3,12 +3,9 @@
 use strict;
 use warnings;
 
+use Cpanel::JSON::XS;
 use Getopt::Long;
 use IO::Handle;
-# JSON::XS seems to have a bad interaction with the TO_JSON() sub we define
-# below. It dies with "Modification of a read-only value attempted at
-# ./bin/dump-database line X."
-use JSON::PP;
 use MaxMind::DB::Reader;
 use Net::Works::Network;
 
@@ -50,7 +47,7 @@ sub main {
         ],
     );
 
-    my $JSON = JSON::PP->new()->utf8->allow_nonref()->pretty()->convert_blessed();
+    my $JSON = Cpanel::JSON::XS->new()->utf8->allow_nonref()->pretty()->convert_blessed();
 
     sub _dump_entry {
         my $ip_version = shift;
