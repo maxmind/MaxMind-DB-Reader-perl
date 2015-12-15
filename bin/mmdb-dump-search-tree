@@ -3,6 +3,8 @@
 use strict;
 use warnings;
 
+our $VERSION = '1.000008';
+
 use Data::Printer;
 use Getopt::Long;
 use MaxMind::DB::Reader;
