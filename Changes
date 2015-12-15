@@ -3,6 +3,9 @@
 - Require Path::Class 0.27 for tests. This is the first version to include
   `tempdir`.
 
+- Really remove dependency on Math::Int128. There was still some test code
+  using it that caused it to be required. Reported by Victor Efimov. GH #23.
+
 
 1.000007 2015-05-27
 
