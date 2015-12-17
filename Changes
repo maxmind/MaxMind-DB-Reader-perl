@@ -1,5 +1,7 @@
 {{$NEXT}}
 
+1.000009 2015-12-17
+
 - Removed test dependency on Net::Works, which in turn depends on
   Math::Int128. Hopefully this finally removes XS from the module's dependency
   chain.

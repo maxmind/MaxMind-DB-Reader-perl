@@ -29,7 +29,6 @@ on 'test' => sub {
   requires "Exporter" => "0";
   requires "ExtUtils::MakeMaker" => "0";
   requires "File::Spec" => "0";
-  requires "Net::Works::Network" => "0.21";
   requires "Path::Class" => "0.27";
   requires "Scalar::Util" => "1.42";
   requires "Test::Bits" => "0";
