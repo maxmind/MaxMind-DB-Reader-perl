@@ -4,7 +4,7 @@ use strict;
 use warnings;
 use namespace::autoclean;
 
-our $VERSION = '1.000009';
+our $VERSION = '1.000010';
 
 use MaxMind::DB::Common qw( DATA_SECTION_SEPARATOR_SIZE );
 use MaxMind::DB::Reader::Decoder;
