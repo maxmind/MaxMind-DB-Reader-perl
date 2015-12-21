@@ -9,6 +9,7 @@ use lib 't/lib';
 use Test::MaxMind::DB::Reader;
 
 use MaxMind::DB::Reader;
+use Module::Implementation ();
 use Path::Class 0.27 qw( tempdir );
 
 {    # Test broken doubles
@@ -51,9 +52,28 @@ use Path::Class 0.27 qw( tempdir );
         or die $!;
     close $fh;
 
+    my $expect
+        = qr/Error opening database file "\Q$file\E": The MaxMind DB file contains invalid metadata/;
+    ## no critic (Subroutines::ProhibitCallsToUnexportedSubs, Modules::RequireExplicitInclusion)
+    if ( Module::Implementation::implementation_for('MaxMind::DB::Reader') eq
+        'XS' ) {
+        my ( undef, $minor, $patch ) = (
+            split /\./,
+            MaxMind::DB::Reader::XS::libmaxminddb_version()
+        );
+
+        # Newer versions of libmaxminddb do better error checking and so end
+        # up throwing a different error on this garbage file.
+        if ( $minor >= 1 && $patch >= 2 ) {
+            $expect
+                = qr/Error opening database file "\Q$file\E": The lookup path does not match the data .+/;
+        }
+    }
+    ## use critic
+
     like(
         exception { MaxMind::DB::Reader->new( file => $file ) },
-        qr/Error opening database file "\Q$file\E": The MaxMind DB file contains invalid metadata/,
+        $expect,
         'expected exception with unknown file type'
     );
 }
