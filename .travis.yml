@@ -8,7 +8,7 @@ addons:
 language: perl
 perl:
   - blead
-  - dev
+  - dev-ci
   - '5.22'
   - '5.20'
   - '5.18'
@@ -32,6 +32,6 @@ before_install:
 notifications:
   email:
     recipients:
-      - dev@maxmind.com
+      - dev-ci@maxmind.com
     on_success: change
     on_failure: always
