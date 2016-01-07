@@ -62,7 +62,7 @@ sub _build_metadata {
     # extremely long descriptions or descriptions in 80 languages before this
     # became too long.
 
-    my $size = $self->_data_source_size();
+    my $size = $self->_data_source_size;
 
     my $last_bytes = min( $size, 20 * 1024 );
     my $last_block = q{};

@@ -49,7 +49,7 @@ sub decode {
         if $offset >= $self->_data_source_size;
 
     if (DEBUG) {
-        $self->_debug_newline();
+        $self->_debug_newline;
         $self->_debug_string( 'Offset', $offset );
     }
 
@@ -161,7 +161,7 @@ sub _decode_pointer {
     $self->_debug_binary( 'Packed pointer', $packed )
         if DEBUG;
 
-    my $pointer = unpack( 'N' => $packed ) + $self->_pointer_base();
+    my $pointer = unpack( 'N' => $packed ) + $self->_pointer_base;
     $pointer += $pointer_value_offset{$pointer_size};
 
     $self->_debug_string( 'Pointer to', $pointer )
@@ -260,7 +260,7 @@ sub _decode_int32 {
             $self->_debug_binary( 'Buffer', $buffer );
         }
 
-        my $int = $size <= $max_int_bytes ? 0 : Math::BigInt->bzero();
+        my $int = $size <= $max_int_bytes ? 0 : Math::BigInt->bzero;
         return $int if $size == 0;
 
         my @unpacked = unpack( 'C*', $buffer );
@@ -298,11 +298,11 @@ sub _decode_array {
 }
 
 sub _decode_container {
-    return MaxMind::DB::Reader::Data::Container->new();
+    return MaxMind::DB::Reader::Data::Container->new;
 }
 
 sub _decode_end_marker {
-    return MaxMind::DB::Reader::Data::EndMarker->new();
+    return MaxMind::DB::Reader::Data::EndMarker->new;
 }
 
 sub _decode_boolean {

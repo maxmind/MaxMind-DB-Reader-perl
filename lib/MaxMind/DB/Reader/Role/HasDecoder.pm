@@ -29,8 +29,8 @@ sub _build_decoder {
     my $self = shift;
 
     return MaxMind::DB::Reader::Decoder->new(
-        data_source  => $self->data_source(),
-        pointer_base => $self->_search_tree_size()
+        data_source  => $self->data_source,
+        pointer_base => $self->_search_tree_size
             + DATA_SECTION_SEPARATOR_SIZE,
     );
 }

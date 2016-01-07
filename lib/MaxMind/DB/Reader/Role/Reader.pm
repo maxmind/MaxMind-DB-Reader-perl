@@ -51,7 +51,7 @@ around _build_metadata => sub {
 
     my $metadata = $self->$orig(@_);
 
-    $metadata->debug_dump();
+    $metadata->debug_dump;
 
     return $metadata;
 };

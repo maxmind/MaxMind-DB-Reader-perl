@@ -34,7 +34,7 @@ sub _read {
     my $wanted_size   = shift;
     my $seek_from_end = shift;
 
-    my $source = $self->data_source();
+    my $source = $self->data_source;
     seek $source, $offset, $seek_from_end ? 2 : 0;
 
     my $read_offset = 0;

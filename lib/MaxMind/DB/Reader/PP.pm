@@ -33,7 +33,7 @@ use constant DEBUG => $ENV{MAXMIND_DB_READER_DEBUG};
 sub BUILD {
     my $self = shift;
 
-    my $file = $self->file();
+    my $file = $self->file;
 
     die qq{Error opening database file "$file": The file does not exist.}
         unless -e $file;
@@ -50,7 +50,7 @@ sub BUILD {
 sub _build_data_source {
     my $self = shift;
 
-    my $file = $self->file();
+    my $file = $self->file;
     open my $fh, '<:raw', $file;
 
     return $fh;
@@ -87,11 +87,11 @@ sub _find_address_in_tree {
     # The first node of the tree is always node 0, at the beginning of the
     # value
     my $node = $self->ip_version == 6
-        && !$is_ipv6_addr ? $self->_ipv4_start_node() : 0;
+        && !$is_ipv6_addr ? $self->_ipv4_start_node : 0;
 
     my $bit_length = @address_bytes * 8;
     for my $bit_num ( 0 .. $bit_length ) {
-        last if $node >= $self->node_count();
+        last if $node >= $self->node_count;
 
         my $temp_bit = 0xFF & $address_bytes[ $bit_num >> 3 ];
         my $bit = 1 & ( $temp_bit >> 7 - ( $bit_num % 8 ) );
@@ -108,13 +108,13 @@ sub _find_address_in_tree {
         }
     }
 
-    if ( $node == $self->node_count() ) {
+    if ( $node == $self->node_count ) {
         $self->_debug_message('Record is empty')
             if DEBUG;
         return;
     }
 
-    if ( $node >= $self->node_count() ) {
+    if ( $node >= $self->node_count ) {
         $self->_debug_message('Record is a data pointer')
             if DEBUG;
         return $node;
@@ -191,15 +191,14 @@ sub _get_entry_data {
     my $self   = shift;
     my $offset = shift;
 
-    my $resolved
-        = ( $offset - $self->node_count() ) + $self->_search_tree_size();
+    my $resolved = ( $offset - $self->node_count ) + $self->_search_tree_size;
 
     confess q{The MaxMind DB file's search tree is corrupt}
         if $resolved > $self->_data_source_size;
 
     if (DEBUG) {
-        my $node_count = $self->node_count();
-        my $tree_size  = $self->_search_tree_size();
+        my $node_count = $self->node_count;
+        my $tree_size  = $self->_search_tree_size;
 
         $self->_debug_string(
             'Resolved data pointer',
@@ -209,7 +208,7 @@ sub _get_entry_data {
 
     # We only want the data from the decoder, not the offset where it was
     # found.
-    return scalar $self->_decoder()->decode($resolved);
+    return scalar $self->_decoder->decode($resolved);
 }
 
 sub _build_ipv4_start_node {
@@ -221,7 +220,7 @@ sub _build_ipv4_start_node {
 
     for ( 1 ... 96 ) {
         ($node_num) = $self->_read_node($node_num);
-        last if $node_num >= $self->node_count();
+        last if $node_num >= $self->node_count;
     }
 
     return $node_num;

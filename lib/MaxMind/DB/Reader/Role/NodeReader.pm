@@ -37,8 +37,8 @@ sub _read_node {
     my $node = q{};
     $self->_read(
         \$node,
-        $node_num * $self->_node_byte_size(),
-        $self->_node_byte_size(),
+        $node_num * $self->_node_byte_size,
+        $self->_node_byte_size,
     );
 
     return $self->_split_node_into_records($node);
@@ -48,10 +48,10 @@ sub _split_node_into_records {
     my $self = shift;
     my $node = shift;
 
-    if ( $self->record_size() == 24 ) {
+    if ( $self->record_size == 24 ) {
         return unpack( NN => pack( 'xa*xa*' => unpack( a3a3 => $node ) ) );
     }
-    elsif ( $self->record_size() == 28 ) {
+    elsif ( $self->record_size == 28 ) {
         my ( $left_bytes, $middle_byte, $right_bytes )
             = unpack( a3Ca3 => $node );
 
@@ -64,7 +64,7 @@ sub _split_node_into_records {
             )
         );
     }
-    elsif ( $self->record_size() == 32 ) {
+    elsif ( $self->record_size == 32 ) {
         return unpack( NN => $node );
     }
 }
@@ -72,13 +72,13 @@ sub _split_node_into_records {
 sub _build_node_byte_size {
     my $self = shift;
 
-    return $self->record_size() * 2 / 8;
+    return $self->record_size * 2 / 8;
 }
 
 sub _build_search_tree_size {
     my $self = shift;
 
-    return $self->node_count() * $self->_node_byte_size();
+    return $self->node_count * $self->_node_byte_size;
 }
 
 1;
