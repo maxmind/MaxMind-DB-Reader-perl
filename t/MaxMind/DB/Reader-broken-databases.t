@@ -64,10 +64,15 @@ use Path::Class 0.27 qw( tempdir );
 
         # Newer versions of libmaxminddb do better error checking and so end
         # up throwing a different error on this garbage file.
-        if ( $minor >= 1 && $patch >= 2 ) {
+        if ( $minor >= 1 && $patch >= 3 ) {
+            $expect
+                = qr/Error opening database file "\Q$file\E": The MaxMind DB file contains invalid metadata .+/;
+        }
+        elsif ( $minor >= 1 && $patch >= 2 ) {
             $expect
                 = qr/Error opening database file "\Q$file\E": The lookup path does not match the data .+/;
         }
+
     }
     ## use critic
 
