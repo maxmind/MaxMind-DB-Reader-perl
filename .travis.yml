@@ -8,7 +8,7 @@ addons:
 language: perl
 perl:
   - blead
-  - dev-ci
+  - dev
   - '5.22'
   - '5.20'
   - '5.18'
@@ -31,7 +31,10 @@ before_install:
   - eval $(curl https://travis-perl.github.io/init) --auto
 notifications:
   email:
+    on_failure: always
+    on_success: change
     recipients:
       - dev-ci@maxmind.com
-    on_success: change
-    on_failure: always
+  slack:
+    rooms:
+      secure: "Ie3AovDHNVDgfg+UBRnrBV9OVuwlNrq/3DBRjCixoDOokkzy9T817PvKkYOQrCiyKa5p1BAlkrvpNxLInH6Y2kKm4anvqWRI3XgQFlZRLxy0zhJv0oUnu+oaPyFVZk+4eGCl5+uuXLclE/5RoJqW2fRRhnBRP/g64KBt84KlmU8=\n"
