@@ -73,11 +73,15 @@ sub _find_address_in_tree {
     my $self = shift;
     my $addr = shift;
 
-    my $is_ipv6_addr  = $addr =~ /::/;
-    my @address_bytes = unpack(
-        'C*',
-        inet_pton( $is_ipv6_addr ? AF_INET6 : AF_INET, $addr )
-    );
+    my $is_ipv6_addr = $addr =~ /:/;
+
+    my $packed_addr = inet_pton( $is_ipv6_addr ? AF_INET6 : AF_INET, $addr );
+
+    die
+        "The IP address you provided ($addr) is not a valid IPv4 or IPv6 address"
+        unless defined $packed_addr;
+
+    my @address_bytes = unpack( 'C*', $packed_addr );
 
     # The first node of the tree is always node 0, at the beginning of the
     # value

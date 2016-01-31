@@ -9,9 +9,13 @@ use Test::Requires {
 };
 
 use lib 't/lib';
+
+# This must come before `use MaxMind::DB::Reader;` as otherwise the wrong
+# reader may be loaded
+use Test::MaxMind::DB::Reader;
+
 use Math::Int128 qw( uint128 );
 use MaxMind::DB::Reader;
-use Test::MaxMind::DB::Reader;
 use Test::More;
 use Test::Number::Delta;
 

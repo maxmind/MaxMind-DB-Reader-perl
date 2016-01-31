@@ -1,5 +1,9 @@
 {{$NEXT}}
 
+- Fixed a bug that prevented the pure Perl implementation from correctly
+  detecting expanded IPv6 addresses.
+
+
 1.000009 2015-12-17
 
 - Removed test dependency on Net::Works, which in turn depends on
