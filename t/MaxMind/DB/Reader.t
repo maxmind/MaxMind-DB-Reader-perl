@@ -3,11 +3,15 @@ use warnings;
 use autodie;
 
 use lib 't/lib';
-use MaxMind::DB::Reader;
+
+# This must come before `use MaxMind::DB::Reader;` as otherwise the wrong
+# reader may be loaded
+use Test::MaxMind::DB::Reader;
+
 use Path::Class qw( file );
+use MaxMind::DB::Reader;
 use Test::Fatal;
 use Test::MaxMind::DB::Common::Util qw( standard_test_metadata );
-use Test::MaxMind::DB::Reader;
 use Test::More;
 
 for my $record_size ( 24, 28, 32 ) {
@@ -144,6 +148,20 @@ SKIP:
         undef,
         'Using a file object does not cause a type error'
     );
+}
+
+{
+    my $mmdb_record
+        = MaxMind::DB::Reader->new(
+        file => 'maxmind-db/test-data/GeoIP2-Domain-Test.mmdb' )
+        ->record_for_address('2002:47a0:df00:0:0:0:0:0');
+    ok( $mmdb_record, 'found record for expanded IPv6 address' );
+
+    is(
+        $mmdb_record->{domain}, 'verizon.net',
+        'expanded IPv6 address has expected data'
+    );
+
 }
 
 done_testing();

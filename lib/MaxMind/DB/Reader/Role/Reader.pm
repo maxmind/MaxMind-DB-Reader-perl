@@ -36,6 +36,9 @@ sub record_for_address {
     die 'You must provide an IP address to look up'
         unless defined $addr && length $addr;
 
+    # We validate the IP address here as libmaxminddb allows more liberal
+    # numbers and dots notation for IPv4 (e.g., `1.1.1` or `01.1.1.1`) rather
+    # than requiring the standard dotted quad due to using getaddrinfo.
     die
         "The IP address you provided ($addr) is not a valid IPv4 or IPv6 address"
         unless is_ipv4($addr) || is_ipv6($addr);

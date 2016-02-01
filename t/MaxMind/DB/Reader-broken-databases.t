@@ -6,6 +6,9 @@ use Test::Fatal;
 use Test::More;
 
 use lib 't/lib';
+
+# This must come before `use MaxMind::DB::Reader;` as otherwise the wrong
+# reader may be loaded
 use Test::MaxMind::DB::Reader;
 
 use MaxMind::DB::Reader;
