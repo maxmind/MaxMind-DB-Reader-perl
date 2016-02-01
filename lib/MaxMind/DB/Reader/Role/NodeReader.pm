@@ -5,7 +5,7 @@ use warnings;
 use namespace::autoclean;
 use autodie;
 
-our $VERSION = '1.000010';
+our $VERSION = '1.000011';
 
 use MaxMind::DB::Types qw( Int );
 

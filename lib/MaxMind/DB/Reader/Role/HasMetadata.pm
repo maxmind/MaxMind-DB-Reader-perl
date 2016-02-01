@@ -7,7 +7,7 @@ use autodie;
 
 require bytes;
 
-our $VERSION = '1.000010';
+our $VERSION = '1.000011';
 use Carp qw( confess );
 use List::AllUtils qw( min );
 use MaxMind::DB::Reader::Decoder;

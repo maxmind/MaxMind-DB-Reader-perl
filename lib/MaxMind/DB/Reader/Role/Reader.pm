@@ -5,7 +5,7 @@ use warnings;
 use namespace::autoclean;
 use autodie;
 
-our $VERSION = '1.000010';
+our $VERSION = '1.000011';
 
 use Data::Validate::IP 0.16 qw( is_ipv4 is_ipv6 );
 use Math::BigInt ();

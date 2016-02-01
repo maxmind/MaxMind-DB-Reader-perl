@@ -3,7 +3,7 @@ package MaxMind::DB::Reader::Data::EndMarker;
 use strict;
 use warnings;
 
-our $VERSION = '1.000010';
+our $VERSION = '1.000011';
 
 sub new {
     my $str = 'end marker';
