@@ -1,5 +1,7 @@
 {{$NEXT}}
 
+1.000010 2016-02-01
+
 - Fixed a bug that prevented the pure Perl implementation from correctly
   detecting expanded IPv6 addresses.
 

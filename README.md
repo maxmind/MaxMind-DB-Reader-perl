@@ -4,7 +4,7 @@ MaxMind::DB::Reader - Read MaxMind DB files and look up IP addresses
 
 # VERSION
 
-version 1.000009
+version 1.000010
 
 # SYNOPSIS
 
@@ -129,7 +129,7 @@ Please report all issues with this code using the GitHub issue tracker at
 
 # COPYRIGHT AND LICENSE
 
-This software is Copyright (c) 2015 by MaxMind, Inc..
+This software is Copyright (c) 2016 by MaxMind, Inc..
 
 This is free software, licensed under:
 
