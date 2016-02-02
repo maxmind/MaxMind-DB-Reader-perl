@@ -3,6 +3,9 @@
 - Decoding of unsigned integers has been simplified. Math::BigInt will now
   only be used for integers that are actually too big to store as native
   integers.
+- Require MaxMind::DB::Commmon 0.040001. This should fix some CPAN Tester
+  failures.
+- Require Data::Validate::IP 0.25. We now use the new is_ip subroutine.
 
 
 1.000010 2016-02-01
