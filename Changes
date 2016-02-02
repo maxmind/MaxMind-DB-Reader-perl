@@ -1,5 +1,7 @@
 {{$NEXT}}
 
+1.000011 2016-02-02
+
 - Decoding of unsigned integers has been simplified. Math::BigInt will now
   only be used for integers that are actually too big to store as native
   integers.

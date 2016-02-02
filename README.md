@@ -4,7 +4,7 @@ MaxMind::DB::Reader - Read MaxMind DB files and look up IP addresses
 
 # VERSION
 
-version 1.000010
+version 1.000011
 
 # SYNOPSIS
 
