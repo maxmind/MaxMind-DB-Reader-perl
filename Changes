@@ -1,5 +1,10 @@
 {{$NEXT}}
 
+- Decoding of unsigned integers has been simplified. Math::BigInt will now
+  only be used for integers that are actually too big to store as native
+  integers.
+
+
 1.000010 2016-02-01
 
 - Fixed a bug that prevented the pure Perl implementation from correctly
