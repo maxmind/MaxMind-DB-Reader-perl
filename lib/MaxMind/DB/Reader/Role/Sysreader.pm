@@ -5,7 +5,7 @@ use warnings;
 use namespace::autoclean;
 use autodie;
 
-our $VERSION = '1.000011';
+our $VERSION = '1.000012';
 
 use Carp qw( confess );
 use MaxMind::DB::Types qw( FileHandle Int );
