@@ -122,7 +122,7 @@ sub decode {
     $self->_debug_binary( 'Buffer', $buffer )
         if DEBUG;
 
-    my $method = '_decode_' . $type;
+    my $method = '_decode_' . ( $type =~ /^uint/ ? 'uint' : $type );
     return wantarray
         ? ( $self->$method( $buffer, $size ), $offset + $size )
         : $self->$method( $buffer, $size );
@@ -210,22 +210,6 @@ sub _decode_bytes {
     return $buffer;
 }
 
-sub _decode_uint16 {
-    my $self   = shift;
-    my $buffer = shift;
-    my $size   = shift;
-
-    return $self->_decode_uint( $buffer, $size, 4 );
-}
-
-sub _decode_uint32 {
-    my $self   = shift;
-    my $buffer = shift;
-    my $size   = shift;
-
-    return $self->_decode_uint( $buffer, $size, 4 );
-}
-
 sub _decode_map {
     my $self   = shift;
     my $size   = shift;
@@ -263,22 +247,6 @@ sub _decode_int32 {
     return unpack( 'N!' => $self->_zero_pad_left( $buffer, 4 ) );
 }
 
-sub _decode_uint64 {
-    my $self   = shift;
-    my $buffer = shift;
-    my $size   = shift;
-
-    return $self->_decode_uint( $buffer, $size, 8 );
-}
-
-sub _decode_uint128 {
-    my $self   = shift;
-    my $buffer = shift;
-    my $size   = shift;
-
-    return $self->_decode_uint( $buffer, $size, 16 );
-}
-
 {
     my $max_int_bytes = log( ~0 ) / ( 8 * log(2) );
 
@@ -286,15 +254,13 @@ sub _decode_uint128 {
         my $self   = shift;
         my $buffer = shift;
         my $size   = shift;
-        my $bytes  = shift;
 
         if (DEBUG) {
-            $self->_debug_string( 'UINT size',  $size );
-            $self->_debug_string( 'UINT bytes', $bytes );
+            $self->_debug_string( 'UINT size', $size );
             $self->_debug_binary( 'Buffer', $buffer );
         }
 
-        my $int = $bytes <= $max_int_bytes ? 0 : Math::BigInt->bzero();
+        my $int = $size <= $max_int_bytes ? 0 : Math::BigInt->bzero();
         return $int if $size == 0;
 
         my @unpacked = unpack( 'C*', $buffer );
