@@ -11,7 +11,7 @@ use Carp qw( confess );
 use Data::IEEE754 qw( unpack_double_be unpack_float_be );
 use Encode ();
 use Math::BigInt qw();
-use MaxMind::DB::Common 0.040000 qw( %TypeNumToName );
+use MaxMind::DB::Common 0.040001 qw( %TypeNumToName );
 use MaxMind::DB::Reader::Data::Container;
 use MaxMind::DB::Reader::Data::EndMarker;
 use MaxMind::DB::Types qw( Int );

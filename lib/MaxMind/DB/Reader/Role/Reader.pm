@@ -7,7 +7,7 @@ use autodie;
 
 our $VERSION = '1.000011';
 
-use Data::Validate::IP 0.16 qw( is_ipv4 is_ipv6 );
+use Data::Validate::IP 0.25 qw( is_ip );
 use Math::BigInt ();
 use MaxMind::DB::Types qw( Str );
 
@@ -41,7 +41,7 @@ sub record_for_address {
     # than requiring the standard dotted quad due to using getaddrinfo.
     die
         "The IP address you provided ($addr) is not a valid IPv4 or IPv6 address"
-        unless is_ipv4($addr) || is_ipv6($addr);
+        unless is_ip($addr);
 
     return $self->_data_for_address($addr);
 }
