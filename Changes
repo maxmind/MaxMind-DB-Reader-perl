@@ -1,5 +1,7 @@
 {{$NEXT}}
 
+1.000012 2016-03-23
+
 - iterate_search_tree() is no longer shared with the XS module as it now
   provides a separate implementation.
 
