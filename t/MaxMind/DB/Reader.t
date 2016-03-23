@@ -8,8 +8,8 @@ use lib 't/lib';
 # reader may be loaded
 use Test::MaxMind::DB::Reader;
 
-use Path::Class qw( file );
 use MaxMind::DB::Reader;
+use Path::Class qw( file );
 use Test::Fatal;
 use Test::MaxMind::DB::Common::Util qw( standard_test_metadata );
 use Test::More;
@@ -134,6 +134,17 @@ SKIP:
         \@networks,
         \@expect_data,
         '$reader->iterate_search_tree() finds all the networks in the database'
+    ) or diag explain \@networks;
+}
+
+{
+    my $reader = MaxMind::DB::Reader->new(
+        file => 'maxmind-db/test-data/MaxMind-DB-test-mixed-24.mmdb' );
+
+    is(
+        exception { $reader->iterate_search_tree },
+        undef,
+        'no exception from iterate_search_tree when callbacks are not provided'
     );
 }
 

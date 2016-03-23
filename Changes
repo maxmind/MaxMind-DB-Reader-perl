@@ -1,5 +1,9 @@
 {{$NEXT}}
 
+- iterate_search_tree() is no longer shared with the XS module as it now
+  provides a separate implementation.
+
+
 1.000011 2016-02-02
 
 - Decoding of unsigned integers has been simplified. Math::BigInt will now

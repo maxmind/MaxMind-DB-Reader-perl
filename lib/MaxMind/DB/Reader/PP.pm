@@ -8,6 +8,7 @@ use autodie;
 our $VERSION = '1.000012';
 
 use Carp qw( confess );
+use Math::BigInt ();
 use MaxMind::DB::Types qw( Int );
 use Socket 1.87 qw( inet_pton AF_INET AF_INET6 );
 
@@ -117,6 +118,70 @@ sub _find_address_in_tree {
         $self->_debug_message('Record is a data pointer')
             if DEBUG;
         return $node;
+    }
+}
+
+sub iterate_search_tree {
+    my $self          = shift;
+    my $data_callback = shift;
+    my $node_callback = shift;
+
+    my $node_num  = 0;
+    my $ipnum     = $self->ip_version() == 4 ? 0 : Math::BigInt->bzero();
+    my $depth     = 1;
+    my $max_depth = $self->ip_version() == 4 ? 32 : 128;
+
+    $self->_iterate_search_tree(
+        $data_callback,
+        $node_callback,
+        $node_num,
+        $ipnum,
+        $depth,
+        $max_depth,
+    );
+}
+
+sub _iterate_search_tree {
+    my $self          = shift;
+    my $data_callback = shift;
+    my $node_callback = shift;
+    my $node_num      = shift;
+    my $ipnum         = shift;
+    my $depth         = shift;
+    my $max_depth     = shift;
+
+    ## no critic (TestingAndDebugging::ProhibitNoWarnings)
+    no warnings 'recursion';
+    ## use critic
+
+    my @records = $self->_read_node($node_num);
+    $node_callback->( $node_num, @records ) if $node_callback;
+
+    for my $idx ( 0 .. 1 ) {
+        my $value = $records[$idx];
+
+        # We ignore empty branches of the search tree
+        next if $value == $self->node_count();
+
+        my $one = $self->ip_version() == 4 ? 1 : Math::BigInt->bone();
+        $ipnum = $ipnum | ( $one << ( $max_depth - $depth ) ) if $idx;
+
+        if ( $value <= $self->node_count() ) {
+            $self->_iterate_search_tree(
+                $data_callback,
+                $node_callback,
+                $value,
+                $ipnum,
+                $depth + 1,
+                $max_depth,
+            );
+        }
+        elsif ($data_callback) {
+            $data_callback->(
+                $ipnum, $depth,
+                $self->_get_entry_data($value)
+            );
+        }
     }
 }
 

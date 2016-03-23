@@ -24,6 +24,7 @@ requires "namespace::autoclean" => "0";
 requires "perl" => "5.010000";
 requires "strict" => "0";
 requires "warnings" => "0";
+suggests "MaxMind::DB::Reader::XS" => "1.000003";
 
 on 'test' => sub {
   requires "Exporter" => "0";
