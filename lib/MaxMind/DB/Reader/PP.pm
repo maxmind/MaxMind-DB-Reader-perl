@@ -5,7 +5,7 @@ use warnings;
 use namespace::autoclean;
 use autodie;
 
-our $VERSION = '1.000012';
+our $VERSION = '1.000013';
 
 use Carp qw( confess );
 use Math::BigInt ();
