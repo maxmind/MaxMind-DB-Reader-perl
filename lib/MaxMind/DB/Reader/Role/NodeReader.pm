@@ -29,6 +29,7 @@ has _search_tree_size => (
     builder  => '_build_search_tree_size',
 );
 
+## no critic (Subroutines::ProhibitUnusedPrivateSubroutines)
 sub _read_node {
     my $self     = shift;
     my $node_num = shift;
