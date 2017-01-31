@@ -38,7 +38,7 @@ has metadata => (
 );
 
 has _data_section_end => (
-    is       => 'rw',
+    is       => 'ro',
     writer   => '_set_data_section_end',
     isa      => Int,
     init_arg => undef,
