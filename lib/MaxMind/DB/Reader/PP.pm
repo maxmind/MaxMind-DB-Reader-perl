@@ -141,6 +141,7 @@ sub iterate_search_tree {
     );
 }
 
+## no critic (Subroutines::ProhibitManyArgs)
 sub _iterate_search_tree {
     my $self          = shift;
     my $data_callback = shift;
@@ -184,6 +185,7 @@ sub _iterate_search_tree {
         }
     }
 }
+## use critic
 
 sub _get_entry_data {
     my $self   = shift;

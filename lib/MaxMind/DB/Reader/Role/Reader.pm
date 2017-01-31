@@ -22,7 +22,7 @@ use constant DEBUG => $ENV{MAXMIND_DB_READER_DEBUG};
 has file => (
     is       => 'ro',
     isa      => Str,
-    coerce   => sub { "$_[0]" },
+    coerce   => sub {"$_[0]"},
     required => 1,
 );
 

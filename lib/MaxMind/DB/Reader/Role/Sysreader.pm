@@ -26,6 +26,7 @@ has _data_source_size => (
     builder => '_build_data_source_size',
 );
 
+## no critic (Subroutines::ProhibitUnusedPrivateSubroutines)
 sub _read {
     my $self          = shift;
     my $buffer        = shift;
@@ -62,6 +63,7 @@ sub _read {
 
     return;
 }
+## use critic
 
 sub _build_data_source {
     my $class = ref shift;
