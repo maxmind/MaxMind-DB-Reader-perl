@@ -1,5 +1,7 @@
 {{$NEXT}}
 
+1.000013 2017-02-01
+
 - Fixed an error inflating MaxMind::DB::Reader into a Moose object with
   Moose 2.2000 to 2.2003.
 
