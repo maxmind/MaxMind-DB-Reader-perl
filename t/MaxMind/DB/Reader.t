@@ -78,7 +78,7 @@ SKIP:
             integer     => $ipnum,
             mask_length => $depth,
             ip_version  => 6,
-            )->as_string();
+        )->as_string();
     };
 
     $reader->iterate_search_tree( $data_cb, $node_cb );
@@ -228,7 +228,7 @@ sub _test_ipv4_lookups {
         [ '1.1.1.17' => '1.1.1.16' ],
         [ '1.1.1.31' => '1.1.1.16' ],
         [ '1.1.1.32' => '1.1.1.32' ],
-        ) {
+    ) {
 
         my ( $ip, $expect ) = @{$pair};
 
@@ -297,7 +297,7 @@ sub _test_ipv6_lookups {
         [ '::2:0:52' => '::2:0:50' ],
         [ '::2:0:57' => '::2:0:50' ],
         [ '::2:0:59' => '::2:0:58' ],
-        ) {
+    ) {
 
         my ( $ip, $expect ) = @{$pair};
         is_deeply(
