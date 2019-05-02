@@ -94,7 +94,7 @@ sub _find_address_in_tree {
         last if $node >= $self->node_count;
 
         my $temp_bit = 0xFF & $address_bytes[ $bit_num >> 3 ];
-        my $bit = 1 & ( $temp_bit >> 7 - ( $bit_num % 8 ) );
+        my $bit      = 1 & ( $temp_bit >> 7 - ( $bit_num % 8 ) );
 
         my ( $left_record, $right_record ) = $self->_read_node($node);
 
