@@ -4,7 +4,7 @@ MaxMind::DB::Reader - Read MaxMind DB files and look up IP addresses
 
 # VERSION
 
-version 1.000013
+version 1.000014
 
 # SYNOPSIS
 
@@ -112,6 +112,9 @@ major number, YYY is the minor number, and ZZZ is the patch number.
 
 # SUPPORT
 
+This module is deprecated and will only receive fixes for major bugs and
+security vulnerabilities. New features and functionality will not be added.
+
 Please report all issues with this code using the GitHub issue tracker at
 [https://github.com/maxmind/MaxMind-DB-Reader-perl/issues](https://github.com/maxmind/MaxMind-DB-Reader-perl/issues).
 
@@ -128,10 +131,11 @@ Bugs may be submitted through [https://github.com/maxmind/MaxMind-DB-Reader-perl
 - Mateu X Hunter <mhunter@maxmind.com>
 - Ran Eilam <reilam@maxmind.com>
 - William Stevenson <skyblue@skybluecircles.com>
+- Will Storey <wstorey@maxmind.com>
 
 # COPYRIGHT AND LICENSE
 
-This software is Copyright (c) 2017 by MaxMind, Inc.
+This software is Copyright (c) 2019 by MaxMind, Inc.
 
 This is free software, licensed under:
 
