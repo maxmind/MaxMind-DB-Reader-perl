@@ -5,7 +5,7 @@ use warnings;
 use namespace::autoclean;
 use autodie;
 
-our $VERSION = '1.000014';
+our $VERSION = '1.000015';
 
 use Carp qw( confess );
 use Data::IEEE754 qw( unpack_double_be unpack_float_be );
