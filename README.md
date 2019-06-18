@@ -128,6 +128,7 @@ Bugs may be submitted through [https://github.com/maxmind/MaxMind-DB-Reader-perl
 # CONTRIBUTORS
 
 - Greg Oschwald <goschwald@maxmind.com>
+- Mark Fowler <mark@twoshortplanks.com>
 - Mateu X Hunter <mhunter@maxmind.com>
 - Ran Eilam <reilam@maxmind.com>
 - William Stevenson <skyblue@skybluecircles.com>

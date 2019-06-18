@@ -60,7 +60,7 @@ on 'develop' => sub {
   requires "Net::Works" => "0";
   requires "Parallel::ForkManager" => "1.19";
   requires "Perl::Critic" => "1.126";
-  requires "Perl::Tidy" => "20160302";
+  requires "Perl::Tidy" => "20190601";
   requires "Pod::Coverage::Moose" => "0";
   requires "Pod::Coverage::TrustPod" => "0";
   requires "Pod::Wordlist" => "0";
@@ -79,6 +79,5 @@ on 'develop' => sub {
   requires "Test::Synopsis" => "0";
   requires "Test::Vars" => "0.009";
   requires "Test::Version" => "2.05";
-  requires "blib" => "1.01";
   requires "parent" => "0";
 };
