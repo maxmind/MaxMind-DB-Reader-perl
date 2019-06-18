@@ -1,5 +1,7 @@
 {{$NEXT}}
 
+- Added deprecation notice
+
 1.000013 2017-02-01
 
 - Fixed an error inflating MaxMind::DB::Reader into a Moose object with
