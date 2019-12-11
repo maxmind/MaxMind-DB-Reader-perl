@@ -48,7 +48,7 @@ use Path::Class 0.27 qw( tempdir );
 }
 
 {    # test non-database
-    my $dir = tempdir( CLEANUP => 1 );
+    my $dir  = tempdir( CLEANUP => 1 );
     my $file = $dir->file('garbage');
     open my $fh, '>', $file;
     print {$fh} "garbage text\n"
